@@ -3,13 +3,17 @@ What can I do for you?
     Got it. I've added this task:
       [T][ ] hello
     Now you have 1 tasks in your list.
-OOPS! Please start with 'todo', 'deadline' or 'event' and input the task.
+OOPS! If you are adding in a task, please start with 'todo', 'deadline' or 'event'.
 Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
+Else, start with 'mark' or 'unmark' to edit task.
+Start with 'delete' to delete task
     Got it. I've added this task:
       [D][ ] math (by: next week)
     Now you have 2 tasks in your list.
-OOPS! Please start with 'todo', 'deadline' or 'event' and input the task.
+OOPS! If you are adding in a task, please start with 'todo', 'deadline' or 'event'.
 Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
+Else, start with 'mark' or 'unmark' to edit task.
+Start with 'delete' to delete task
 OOPS! Please specify an end time by inputting '/by (end)' for deadline task or '/to (end)' for event task
 OOPS! Please input a start time by '/from (start)
     Got it. I've added this task:
@@ -29,4 +33,13 @@ OOPS! Please input a start time by '/from (start)
     [T][ ] hello
 OOPS! Task does not exist
 OOPS! Task does not exist
+Please input a number after 'mark' or 'unmark'
+Please input a number after 'mark' or 'unmark'
+Please input a number after 'delete'
+    Noted. I've removed this task:
+      [T][ ]  hello
+    Now you have 2 tasks left
+    Here are the tasks in your list:
+    1. [D][X]  math (by: next week)
+    2. [E][X]  class (from: monday to: friday)
     Bye. Hope to see you again! ^-^

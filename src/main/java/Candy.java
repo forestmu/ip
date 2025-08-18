@@ -15,20 +15,42 @@ public class Candy {
     }
 
     private static void marking(String number, boolean mark) {
-        int order = Integer.parseInt(number);
-        if (order <= 0 || order > allText.size()) {
-            throw new MarkingErrorException();
+        int order;
+        try {
+            order = Integer.parseInt(number.trim());
+            if (order <= 0 || order > allText.size()) {
+                throw new EditTaskErrorException();
+            }
+            Task toMark = allText.get(order - 1);
+            if (mark) {
+                toMark.markDone();
+                System.out.println("    Nice! I've marked this task as done: \n    "
+                        + toMark.toString());
+            } else {
+                toMark.markUndone();
+                System.out.println("    Ok, I've marked this task as not done yet: \n    "
+                        + toMark.toString());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a number after 'mark' or 'unmark'");
         }
-        Task toMark = allText.get(order - 1);
-        if (mark) {
-            toMark.markDone();
-            System.out.println("    Nice! I've marked this task as done: \n    "
-                    + toMark.toString());
-        } else {
-            toMark.markUndone();
-            System.out.println("    Ok, I've marked this task as not done yet: \n    "
-                    + toMark.toString());
+    }
+
+    private static void delete(String number) {
+        int order;
+        try {
+            order = Integer.parseInt(number.trim());
+            if (order <= 0 || order > allText.size()) {
+                throw new EditTaskErrorException();
+            }
+            Task toDelete = allText.get(order - 1);
+            allText.remove(order - 1);
+            System.out.println("    Noted. I've removed this task:\n      " + toDelete.toString() +
+                            "\n    Now you have " + allText.size() + " tasks left");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a number after 'delete'");
         }
+
     }
 
     private static void addTask(String text, String type, String start, String end) {
@@ -147,18 +169,25 @@ public class Candy {
                 break;
             } else if (text.equals(("list"))) {
                 listing();
-            } else if (text.startsWith("mark ")) {
-                String number = text.substring(5);
+            } else if (text.startsWith("mark")) {
+                String number = text.substring(4);
                 try {
                     marking(number, true);
-                } catch (MarkingErrorException e) {
+                } catch (EditTaskErrorException e) {
                     System.out.println(e.getMessage());
                 }
-            } else if (text.startsWith("unmark ")) {
-                String number = text.substring(7);
+            } else if (text.startsWith("unmark")) {
+                String number = text.substring(6);
                 try {
                     marking(number, false);
-                } catch (MarkingErrorException e) {
+                } catch (EditTaskErrorException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (text.startsWith("delete")) {
+                String number = text.substring(6);
+                try {
+                    delete(number);
+                } catch (EditTaskErrorException e) {
                     System.out.println(e.getMessage());
                 }
             }  else {
