@@ -16,6 +16,9 @@ public class Candy {
 
     private static void marking(String number, boolean mark) {
         int order = Integer.parseInt(number);
+        if (order <= 0 || order > allText.size()) {
+            throw new MarkingErrorException();
+        }
         Task toMark = allText.get(order - 1);
         if (mark) {
             toMark.markDone();
@@ -34,15 +37,103 @@ public class Candy {
             newTask = new Todo(text);
         } else if (type.equals("deadline")) {
             newTask = new Deadline(text, end);
-        } else if (type.equals("event")){
-            newTask = new Event(text, start, end);
         } else {
-            newTask = new Task(text);
+            newTask = new Event(text, start, end);
         }
         allText.add(newTask);
         System.out.println("    Got it. I've added this task: \n      " +
                 newTask.toString() + "\n    Now you have " + allText.size() +
                 " tasks in your list.");
+    }
+
+    private static String getType(String text) {
+        String type;
+        if (text.startsWith("todo")) {
+            type = "todo";
+        } else if (text.startsWith("deadline")) {
+            type = "deadline";
+        } else if (text.startsWith("event")) {
+            type = "event";
+        } else {
+            type = null;
+        }
+
+        if (type == null) {
+            throw new InvalidInputException();
+        } else {
+            return type;
+        }
+    }
+
+    private static String getDescription(String text) {
+        String description;
+        if (text.startsWith("todo")) {
+            description = text.substring(4);
+        } else if (text.startsWith("deadline")) {
+            int index = text.indexOf("/");
+            if (index == -1) {
+                throw new InvalidInputException();
+            }
+            description = text.substring(8, index - 1);
+        } else if (text.startsWith("event")) {
+            int getFrom = text.indexOf("/");
+            if (getFrom == -1) {
+                throw new InvalidInputException();
+            }
+            description = text.substring(5, getFrom - 1);
+        } else {
+            description = text;
+        }
+
+        if (description.isBlank()) {
+            throw new NoTaskException();
+        } else {
+            return description;
+        }
+    }
+
+    private static String getStart(String text) {
+        String start;
+        if (text.startsWith("event")) {
+            int getFrom = text.indexOf("/");
+            int getTo = text.lastIndexOf("/");
+            if (getFrom == getTo || getFrom == -1 || getTo == -1) {
+                throw new InvalidInputException();
+            }
+            start = text.substring(getFrom + 5, getTo - 1);
+            if (start.isBlank()) {
+                throw new NoStartException();
+            }
+        } else {
+            start = null;
+        }
+        return start;
+    }
+
+    private static String getEnd(String text) {
+        String end;
+        if (text.startsWith("deadline")) {
+            int index = text.indexOf("/");
+            if (index == -1) {
+                throw new InvalidInputException();
+            }
+            end = text.substring(index + 3);
+            if (end.isBlank()) {
+                throw new NoEndException();
+            }
+        } else if (text.startsWith("event")) {
+            int index = text.lastIndexOf("/");
+            if (index == -1) {
+                throw new InvalidInputException();
+            }
+            end = text.substring(index + 3);
+            if (end.isBlank()) {
+                throw new NoEndException();
+            }
+        } else {
+            end = null;
+        }
+        return end;
     }
 
     public static void main(String[] args) {
@@ -58,39 +149,34 @@ public class Candy {
                 listing();
             } else if (text.startsWith("mark ")) {
                 String number = text.substring(5);
-                marking(number, true);
+                try {
+                    marking(number, true);
+                } catch (MarkingErrorException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (text.startsWith("unmark ")) {
                 String number = text.substring(7);
-                marking(number, false);
-            }  else {
-                String description, type, start, end;
-                if (text.startsWith("todo")) {
-                    description = text.substring(5);
-                    type = "todo";
-                    start = null;
-                    end = null;
-                } else if (text.startsWith("deadline")) {
-                    int index = text.indexOf("/");
-
-                    description = text.substring(9, index - 1);
-                    type = "deadline";
-                    start = null;
-                    end = text.substring(index + 4);
-                } else if (text.startsWith("event")) {
-                    int getFrom = text.indexOf("/");
-                    int getTo = text.lastIndexOf("/");
-
-                    description = text.substring(6, getFrom - 1);
-                    type = "event";
-                    start = text.substring(getFrom + 6, getTo - 1);
-                    end = text.substring(getTo + 4);
-                } else {
-                    description = text;
-                    type = "null";
-                    start = null;
-                    end = null;
+                try {
+                    marking(number, false);
+                } catch (MarkingErrorException e) {
+                    System.out.println(e.getMessage());
                 }
-                addTask(description, type, start, end);
+            }  else {
+                try {
+                    String type = getType(text);
+                    String start = getStart(text);
+                    String end = getEnd(text);
+                    String description = getDescription(text);
+                    addTask(description, type, start, end);
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
+                } catch (NoStartException e) {
+                    System.out.println(e.getMessage());
+                } catch (NoEndException e) {
+                    System.out.println(e.getMessage());
+                } catch (NoTaskException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }

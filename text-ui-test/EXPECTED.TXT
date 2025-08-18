@@ -3,23 +3,30 @@ What can I do for you?
     Got it. I've added this task:
       [T][ ] hello
     Now you have 1 tasks in your list.
+OOPS! Please start with 'todo', 'deadline' or 'event' and input the task.
+Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
     Got it. I've added this task:
       [D][ ] math (by: next week)
     Now you have 2 tasks in your list.
+OOPS! Please start with 'todo', 'deadline' or 'event' and input the task.
+Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
+OOPS! Please specify an end time by inputting '/by (end)' for deadline task or '/to (end)' for event task
+OOPS! Please input a start time by '/from (start)
     Got it. I've added this task:
       [E][ ] class (from: monday to: friday)
     Now you have 3 tasks in your list.
-    Got it. I've added this task:
-      [ ] hello
-    Now you have 4 tasks in your list.
     Nice! I've marked this task as done:
     [T][X] hello
     Nice! I've marked this task as done:
     [D][X] math (by: next week)
     Nice! I've marked this task as done:
     [E][X] class (from: monday to: friday)
-    Nice! I've marked this task as done:
-    [X] hello
+    Here are the tasks in your list:
+    1. [T][X]  hello
+    2. [D][X]  math (by: next week)
+    3. [E][X]  class (from: monday to: friday)
     Ok, I've marked this task as not done yet:
     [T][ ] hello
+OOPS! Task does not exist
+OOPS! Task does not exist
     Bye. Hope to see you again! ^-^

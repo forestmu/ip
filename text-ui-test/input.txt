@@ -1,10 +1,15 @@
 todo hello
+deadline
 deadline math /by next week
+event class /from monday
+event class /from monday /to
+event class /from /to friday
 event class /from monday /to friday
-hello
 mark 1
 mark 2
 mark 3
-mark 4
+list
 unmark 1
+unmark 0
+mark 4
 bye
