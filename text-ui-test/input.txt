@@ -1,0 +1,10 @@
+todo hello
+deadline math /by next week
+event class /from monday /to friday
+hello
+mark 1
+mark 2
+mark 3
+mark 4
+unmark 1
+bye

@@ -1,7 +1,25 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I am Candy.
+What can I do for you?
+    Got it. I've added this task:
+      [T][ ] hello
+    Now you have 1 tasks in your list.
+    Got it. I've added this task:
+      [D][ ] math (by: next week)
+    Now you have 2 tasks in your list.
+    Got it. I've added this task:
+      [E][ ] class (from: monday to: friday)
+    Now you have 3 tasks in your list.
+    Got it. I've added this task:
+      [ ] hello
+    Now you have 4 tasks in your list.
+    Nice! I've marked this task as done:
+    [T][X] hello
+    Nice! I've marked this task as done:
+    [D][X] math (by: next week)
+    Nice! I've marked this task as done:
+    [E][X] class (from: monday to: friday)
+    Nice! I've marked this task as done:
+    [X] hello
+    Ok, I've marked this task as not done yet:
+    [T][ ] hello
+    Bye. Hope to see you again! ^-^
