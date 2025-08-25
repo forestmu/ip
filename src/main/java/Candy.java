@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Candy {
     private static ArrayList<Task> allText = new ArrayList<>();
+    private static ArrayList<String> textToSave = new ArrayList<>();
+    private static Storage taskStorage = new Storage();
 
     private static void listing() {
         int max = allText.size();
@@ -31,6 +33,7 @@ public class Candy {
                 System.out.println("    Ok, I've marked this task as not done yet: \n    "
                         + toMark.toString());
             }
+            textToSave.set(order - 1, toMark.toSave());
         } catch (NumberFormatException e) {
             System.out.println("Please input a number after 'mark' or 'unmark'");
         }
@@ -45,6 +48,12 @@ public class Candy {
             }
             Task toDelete = allText.get(order - 1);
             allText.remove(order - 1);
+            textToSave.remove(order - 1);
+            String newList = "";
+            for (int i = 0; i < textToSave.size(); i++) {
+                newList = newList + textToSave.get(i) + System.lineSeparator();
+            }
+            taskStorage.write(newList, false);
             System.out.println("    Noted. I've removed this task:\n      " + toDelete.toString() +
                             "\n    Now you have " + allText.size() + " tasks left");
         } catch (NumberFormatException e) {
@@ -63,6 +72,8 @@ public class Candy {
             newTask = new Event(text, start, end);
         }
         allText.add(newTask);
+        textToSave.add(newTask.toSave());
+        taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
         System.out.println("    Got it. I've added this task: \n      " +
                 newTask.toString() + "\n    Now you have " + allText.size() +
                 " tasks in your list.");
