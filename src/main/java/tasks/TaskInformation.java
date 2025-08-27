@@ -6,6 +6,9 @@ import exceptions.NoStartException;
 import exceptions.NoTaskException;
 import time.Time;
 
+/**
+ * Represents a set of information for a task
+ */
 public class TaskInformation {
     private String text;
     private String description;
@@ -13,10 +16,18 @@ public class TaskInformation {
     private Time endTime;
     private String type;
 
+    /**
+     * Constructor of TaskInformation
+     *
+     * @param text string description of the whole command
+     */
     public TaskInformation(String text) {
         this.text = text;
     }
 
+    /**
+     * Returns string of the type of task
+     */
     public String getType() {
         if (text.startsWith("todo")) {
             type = "todo";
@@ -35,6 +46,9 @@ public class TaskInformation {
         }
     }
 
+    /**
+     * Returns string description of task
+     */
     public String getDescription() {
         if (text.startsWith("todo")) {
             description = text.substring(4);
@@ -61,6 +75,9 @@ public class TaskInformation {
         }
     }
 
+    /**
+     * Returns the start time of task in Time
+     */
     public Time getStart() {
         if (!text.startsWith("event")) {
             return null;
@@ -82,6 +99,9 @@ public class TaskInformation {
         return startTime;
     }
 
+    /**
+     * Returns end time of task in Time
+     */
     public Time getEnd() {
         String end;
         if (text.startsWith("deadline")) {

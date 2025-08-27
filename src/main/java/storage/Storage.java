@@ -12,10 +12,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage that handle edits to file
+ */
 public class Storage {
     private File dataFolder;
     private File candyStorage;
 
+    /**
+     * Constructs a storage file
+     *
+     * @param filePath path to the storage file
+     * @throws IOException if file cannot be created
+     */
     public Storage(String filePath) {
         try {
             this.candyStorage = new File(filePath);
@@ -32,6 +41,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Writes to storage file
+     *
+     * @param string string description of the task
+     * @param toAppend true to add on, false to overwrite the current file
+     */
     public void write(String string, boolean toAppend) {
         try {
             FileWriter writer = new FileWriter(candyStorage, toAppend);
@@ -42,6 +58,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns arraylist of the tasks in String
+     */
     public ArrayList<String> readToString() {
         ArrayList<String> list = new ArrayList<>();
         try {
@@ -57,6 +76,9 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Returns arraylist of the tasks in Task
+     */
     public ArrayList<Task> readToTask() {
         ArrayList<Task> list = new ArrayList<>();
         try {

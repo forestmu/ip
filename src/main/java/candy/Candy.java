@@ -12,15 +12,33 @@ import tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents a Candy chatbox.
+ */
 public class Candy {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Candy.
+     *
+     * @param filePath The path of the storage file.
+     */
     public Candy(String filePath) {
         this.ui = new Ui();
         this.taskList = new TaskList(filePath);
     }
 
+    /**
+     * Runs the Candy program.
+     *
+     * @throws EditTaskErrorException when task does not exist
+     * @throws InvalidInputException when input did not start with the key words
+     * @throws InvalidTimeInputException when time is not keyed in the right format
+     * @throws NoTaskException when there is missing tasks
+     * @throws NoStartException when there is missing start time
+     * @throws NoEndException when there is missing end time
+     */
     public void run() {
         ui.printWelcome();
 
@@ -72,6 +90,11 @@ public class Candy {
         }
     }
 
+    /**
+     * Entry point of Candy
+     *
+     * @param args not used
+     */
     public static void main(String[] args) {
         new Candy("./data/candyStorage.txt").run();
     }

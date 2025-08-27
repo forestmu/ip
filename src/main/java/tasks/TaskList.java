@@ -4,17 +4,28 @@ import exceptions.EditTaskErrorException;
 import storage.Storage;
 import java.util.ArrayList;
 
+/**
+ * Represents all the tasks
+ */
 public class TaskList {
     private static ArrayList<Task> allText = new ArrayList<>();;
     private static ArrayList<String> textToSave = new ArrayList<>();
     private static Storage taskStorage;
 
+    /**
+     * Constructor to initialise array and storage
+     *
+     * @param filePath string description of file path
+     */
     public TaskList(String filePath) {
         this.taskStorage = new Storage(filePath);
         this.textToSave = taskStorage.readToString();
         this.allText = taskStorage.readToTask();
     }
 
+    /**
+     * Prints out all task in allText as string
+     */
     public static void printList() {
         int max = allText.size();
         System.out.println("    Here are the tasks in your list:");
@@ -25,6 +36,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task in the array as given mark
+     *
+     * @param number the index of where task is stored
+     * @param mark to mark task as done/undone
+     */
     public static void doMark(String number, boolean mark) {
         int order;
         try {
@@ -53,6 +70,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task in array
+     *
+     * @param number index of where task to delete is stored
+     */
     public static void delete(String number) {
         int order;
         try {
@@ -76,6 +98,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Add task into array
+     *
+     * @param information string description of the task
+     */
     public static void addTask(TaskInformation information) {
         String type = information.getType();
         Task newTask;
