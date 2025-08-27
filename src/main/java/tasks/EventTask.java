@@ -21,11 +21,13 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + from.toPrint() + " to:" + to.toPrint() + ")";
+        return "[E]" + super.toString() + " (from:" + from.toPrint()
+                + " to:" + to.toPrint() + ")";
     }
 
     @Override
     public String toSave() {
-        return "E | " + super.toSave() + " | " + from.toString() + " | " + to.toString();
+        return "E | " + super.toSave() + " | " + from.toString()
+                + " | " + to.toString();
     }
 }
