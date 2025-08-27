@@ -50,6 +50,10 @@ public class Task{
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns string of task
      * Used for printing task in storage

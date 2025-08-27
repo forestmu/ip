@@ -8,9 +8,9 @@ import java.util.ArrayList;
  * Represents all the tasks
  */
 public class TaskList {
-    private static ArrayList<Task> allText = new ArrayList<>();;
-    private static ArrayList<String> textToSave = new ArrayList<>();
-    private static Storage taskStorage;
+    private ArrayList<Task> allText;
+    private ArrayList<String> textToSave;
+    private Storage taskStorage;
 
     /**
      * Constructor to initialise array and storage
@@ -26,7 +26,7 @@ public class TaskList {
     /**
      * Prints out all task in allText as string
      */
-    public static void printList() {
+    public void printList() {
         int max = allText.size();
         System.out.println("    Here are the tasks in your list:");
         for (int i = 0; i < max; i++) {
@@ -35,14 +35,13 @@ public class TaskList {
             System.out.println("    " + order + ". " + theTask.toString());
         }
     }
-
     /**
      * Marks a task in the array as given mark
      *
      * @param number the index of where task is stored
      * @param mark to mark task as done/undone
      */
-    public static void doMark(String number, boolean mark) {
+    public void doMark(String number, boolean mark) {
         int order;
         try {
             order = Integer.parseInt(number.trim());
@@ -75,7 +74,7 @@ public class TaskList {
      *
      * @param number index of where task to delete is stored
      */
-    public static void delete(String number) {
+    public void delete(String number) {
         int order;
         try {
             order = Integer.parseInt(number.trim());
@@ -104,7 +103,7 @@ public class TaskList {
      *
      * @param information string description of the task
      */
-    public static void addTask(TaskInformation information) {
+    public void addTask(TaskInformation information) {
         String type = information.getType();
         Task newTask;
         if (type.equals("todo")) {
@@ -120,5 +119,33 @@ public class TaskList {
         System.out.println("    Got it. I've added this task: \n      "
                 + newTask.toString() + "\n    Now you have " + allText.size()
                 + " tasks in your list.");
+    }
+
+    public void findTask(String keyword) {
+        ArrayList<Task> foundList = new ArrayList<>();
+        int max = allText.size();
+
+        for (int i = 0; i < max; i++) {
+            Task currentTask = allText.get(i);
+            String description = currentTask.getDescription().toLowerCase();
+            if (description.isEmpty()) {
+                continue;
+            }
+            if (description.contains(keyword.toLowerCase())) {
+                foundList.add(currentTask);
+            }
+        }
+
+        if (foundList.isEmpty()) {
+            System.out.println("    No task exist");
+        } else {
+            System.out.println("    Here are the matching tasks in your list: ");
+            int sized = foundList.size();
+            for (int i = 0; i < sized; i++) {
+                int order = i + 1;
+                Task theTask = foundList.get(i);
+                System.out.println("    " + order + ". " + theTask.toString());
+            }
+        }
     }
 }
