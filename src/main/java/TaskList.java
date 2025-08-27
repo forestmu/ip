@@ -3,9 +3,10 @@ import java.util.ArrayList;
 public class TaskList {
     private static ArrayList<Task> allText = new ArrayList<>();;
     private static ArrayList<String> textToSave = new ArrayList<>();
-    private static Storage taskStorage = new Storage() ;
+    private static Storage taskStorage;
 
-    public TaskList() {
+    public TaskList(String filePath) {
+        this.taskStorage = new Storage(filePath);
         this.textToSave = taskStorage.readToString();
         this.allText = taskStorage.readToTask();
     }

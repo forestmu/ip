@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final File dataFolder = new File("./data");
-    private final File candyStorage = new File("./data/candyStorage.txt");
+    private File dataFolder;
+    private File candyStorage;
 
-    public Storage() {
+    public Storage(String filePath) {
         try {
+            this.candyStorage = new File(filePath);
+            this.dataFolder = candyStorage.getParentFile();
             //makes folder and file if doesn't exist
-            if (!dataFolder.exists()) {
+            if (dataFolder != null && !dataFolder.exists()) {
                 dataFolder.mkdir();
             }
             if (!candyStorage.exists()) {
