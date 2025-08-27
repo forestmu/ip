@@ -80,11 +80,11 @@ public class TaskList {
         String type = information.getType();
         Task newTask;
         if (type.equals("todo")) {
-            newTask = new Todo(information);
+            newTask = new TodoTask(information);
         } else if (type.equals("deadline")) {
-            newTask = new Deadline(information);
+            newTask = new DeadlineTask(information);
         } else {
-            newTask = new Event(information);
+            newTask = new EventTask(information);
         }
         allText.add(newTask);
         textToSave.add(newTask.toSave());

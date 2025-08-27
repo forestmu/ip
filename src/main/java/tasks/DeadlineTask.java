@@ -2,15 +2,15 @@ package tasks;
 
 import time.Time;
 
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
     protected Time by;
 
-    public Deadline(TaskInformation information) {
+    public DeadlineTask(TaskInformation information) {
         super(information);
         this.by = information.getEnd();
     }
 
-    public Deadline(String description, boolean isDone, Time by) {
+    public DeadlineTask(String description, boolean isDone, Time by) {
         super(description, isDone);
         this.by = by;
     }

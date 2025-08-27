@@ -2,18 +2,18 @@ package tasks;
 
 import time.Time;
 
-public class Event extends Task {
+public class EventTask extends Task {
 
     protected Time from;
     protected Time to;
 
-    public Event(TaskInformation information) {
+    public EventTask(TaskInformation information) {
         super(information);
         this.from = information.getStart();
         this.to = information.getEnd();
     }
 
-    public Event(String description, boolean isDone, Time from, Time to) {
+    public EventTask(String description, boolean isDone, Time from, Time to) {
         super(description, isDone);
         this.from = from;
         this.to = to;

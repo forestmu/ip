@@ -1,8 +1,8 @@
 package storage;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Todo;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.TodoTask;
 import tasks.Task;
 import time.Time;
 
@@ -72,17 +72,17 @@ public class Storage {
 
                 //create the task
                 if (type.equals("T")) {
-                    task = new Todo(description, isDone);
+                    task = new TodoTask(description, isDone);
                 } else if (type.equals("D")) {
                     String end = parts[3].trim();
                     Time endTime = new Time(end);
-                    task = new Deadline(description, isDone, endTime);
+                    task = new DeadlineTask(description, isDone, endTime);
                 } else {
                     String start = parts[3].trim();
                     String end = parts[4].trim();
                     Time startTime = new Time(start);
                     Time endTime = new Time(end);
-                    task = new Event(description, isDone, startTime, endTime);
+                    task = new EventTask(description, isDone, startTime, endTime);
                 }
                 list.add(task);
             }
