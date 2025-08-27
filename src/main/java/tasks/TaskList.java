@@ -90,8 +90,9 @@ public class TaskList {
                 newList = newList + textToSave.get(i) + System.lineSeparator();
             }
             taskStorage.write(newList, false);
-            System.out.println("    Noted. I've removed this task:\n      " + toDelete.toString() +
-                    "\n    Now you have " + allText.size() + " tasks left");
+            System.out.println("    Noted. I've removed this task:\n      "
+                    + toDelete.toString() + "\n    Now you have "
+                    + allText.size() + " tasks left");
         } catch (NumberFormatException e) {
             System.out.println("Please input a number after 'delete'");
         }
@@ -116,8 +117,8 @@ public class TaskList {
         allText.add(newTask);
         textToSave.add(newTask.toSave());
         taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-        System.out.println("    Got it. I've added this task: \n      " +
-                newTask.toString() + "\n    Now you have " + allText.size() +
-                " tasks in your list.");
+        System.out.println("    Got it. I've added this task: \n      "
+                + newTask.toString() + "\n    Now you have " + allText.size()
+                + " tasks in your list.");
     }
 }
