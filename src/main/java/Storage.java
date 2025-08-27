@@ -64,12 +64,15 @@ public class Storage {
                 if (type.equals("T")) {
                     task = new Todo(description, isDone);
                 } else if (type.equals("D")) {
-                    String end = parts[3];
-                    task = new Deadline(description, isDone, end);
+                    String end = parts[3].trim();
+                    Time endTime = new Time(end);
+                    task = new Deadline(description, isDone, endTime);
                 } else {
-                    String start = parts[3];
-                    String end = parts[4];
-                    task = new Event(description, isDone, start, end);
+                    String start = parts[3].trim();
+                    String end = parts[4].trim();
+                    Time startTime = new Time(start);
+                    Time endTime = new Time(end);
+                    task = new Event(description, isDone, startTime, endTime);
                 }
                 list.add(task);
             }

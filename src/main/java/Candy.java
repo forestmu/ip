@@ -67,7 +67,7 @@ public class Candy {
 
     }
 
-    private static void addTask(String text, String type, String start, String end) {
+    private static void addTask(String text, String type, Time start, Time end) {
         Task newTask;
         if (type.equals("todo")) {
             newTask = new Todo(text, false);
@@ -130,25 +130,28 @@ public class Candy {
         }
     }
 
-    private static String getStart(String text) {
-        String start;
-        if (text.startsWith("event")) {
-            int getFrom = text.indexOf("/");
-            int getTo = text.lastIndexOf("/");
-            if (getFrom == getTo || getFrom == -1 || getTo == -1) {
-                throw new InvalidInputException();
-            }
-            start = text.substring(getFrom + 5, getTo - 1);
-            if (start.isBlank()) {
-                throw new NoStartException();
-            }
-        } else {
-            start = null;
+    private static Time getStart(String text) {
+        if (!text.startsWith("event")) {
+            return null;
         }
-        return start;
+
+        String start;
+        int getFrom = text.indexOf("/");
+        int getTo = text.lastIndexOf("/");
+        if (getFrom == getTo || getFrom == -1 || getTo == -1) {
+            throw new InvalidInputException();
+        }
+
+        start = text.substring(getFrom + 5, getTo - 1);
+        if (start.isBlank()) {
+            throw new NoStartException();
+        }
+
+        Time time = new Time(start.trim());
+        return time;
     }
 
-    private static String getEnd(String text) {
+    private static Time getEnd(String text) {
         String end;
         if (text.startsWith("deadline")) {
             int index = text.indexOf("/");
@@ -169,9 +172,11 @@ public class Candy {
                 throw new NoEndException();
             }
         } else {
-            end = null;
+            return null;
         }
-        return end;
+
+        Time time = new Time(end.trim());
+        return time;
     }
 
     public static void main(String[] args) {
@@ -211,8 +216,8 @@ public class Candy {
             }  else {
                 try {
                     String type = getType(text);
-                    String start = getStart(text);
-                    String end = getEnd(text);
+                    Time start = getStart(text);
+                    Time end = getEnd(text);
                     String description = getDescription(text);
                     addTask(description, type, start, end);
                 } catch (InvalidInputException e) {
@@ -222,6 +227,8 @@ public class Candy {
                 } catch (NoEndException e) {
                     System.out.println(e.getMessage());
                 } catch (NoTaskException e) {
+                    System.out.println(e.getMessage());
+                } catch (InvalidTimeInput e) {
                     System.out.println(e.getMessage());
                 }
             }
