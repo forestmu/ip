@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Candy {
     private static ArrayList<Task> allText = new ArrayList<>();
+    private static ArrayList<String> textToSave = new ArrayList<>();
+    private static Storage taskStorage = new Storage();
 
     private static void listing() {
         int max = allText.size();
@@ -31,6 +33,12 @@ public class Candy {
                 System.out.println("    Ok, I've marked this task as not done yet: \n    "
                         + toMark.toString());
             }
+            textToSave.set(order - 1, toMark.toSave());
+            String newList = "";
+            for (int i = 0; i < textToSave.size(); i++) {
+                newList = newList + textToSave.get(i) + System.lineSeparator();
+            }
+            taskStorage.write(newList, false);
         } catch (NumberFormatException e) {
             System.out.println("Please input a number after 'mark' or 'unmark'");
         }
@@ -45,6 +53,12 @@ public class Candy {
             }
             Task toDelete = allText.get(order - 1);
             allText.remove(order - 1);
+            textToSave.remove(order - 1);
+            String newList = "";
+            for (int i = 0; i < textToSave.size(); i++) {
+                newList = newList + textToSave.get(i) + System.lineSeparator();
+            }
+            taskStorage.write(newList, false);
             System.out.println("    Noted. I've removed this task:\n      " + toDelete.toString() +
                             "\n    Now you have " + allText.size() + " tasks left");
         } catch (NumberFormatException e) {
@@ -56,13 +70,15 @@ public class Candy {
     private static void addTask(String text, String type, String start, String end) {
         Task newTask;
         if (type.equals("todo")) {
-            newTask = new Todo(text);
+            newTask = new Todo(text, false);
         } else if (type.equals("deadline")) {
-            newTask = new Deadline(text, end);
+            newTask = new Deadline(text, false, end);
         } else {
-            newTask = new Event(text, start, end);
+            newTask = new Event(text, false, start, end);
         }
         allText.add(newTask);
+        textToSave.add(newTask.toSave());
+        taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
         System.out.println("    Got it. I've added this task: \n      " +
                 newTask.toString() + "\n    Now you have " + allText.size() +
                 " tasks in your list.");
@@ -161,6 +177,8 @@ public class Candy {
     public static void main(String[] args) {
         System.out.println("Hello! I am Candy.\nWhat can I do for you?");
 
+        textToSave = taskStorage.readToString();
+        allText = taskStorage.readToTask();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String text = scanner.nextLine();
