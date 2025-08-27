@@ -1,4 +1,8 @@
 public class Todo extends Task {
+    public Todo(TaskInformation information) {
+        super(information);
+    }
+
     public Todo(String description, boolean isDone) {
         super(description, isDone);
     }

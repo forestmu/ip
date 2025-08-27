@@ -1,6 +1,13 @@
-public class Task {
+public class Task{
     protected String description;
     protected boolean isDone;
+    private TaskInformation information;
+
+    public Task(TaskInformation information) {
+        this.information = information;
+        this.description = information.getDescription();
+        this.isDone = false;
+    }
 
     public Task(String description, boolean isDone) {
         this.description = description;

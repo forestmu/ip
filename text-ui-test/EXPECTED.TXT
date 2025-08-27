@@ -7,7 +7,7 @@ OOPS! If you are adding in a task, please start with 'todo', 'deadline' or 'even
 Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
 Else, start with 'mark' or 'unmark' to edit task.
 Start with 'delete' to delete task
-OOPS! Please input in a proper time format: 'dd-mm-yyyy HHmm'
+OOPS! Please input a proper time in the format: 'dd-mm-yyyy HHmm'
     Got it. I've added this task:
       [D][ ]  math (by:6 Dec 2022 23:59)
     Now you have 2 tasks in your list.

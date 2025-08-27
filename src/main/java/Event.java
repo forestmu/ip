@@ -3,6 +3,12 @@ public class Event extends Task {
     protected Time from;
     protected Time to;
 
+    public Event(TaskInformation information) {
+        super(information);
+        this.from = information.getStart();
+        this.to = information.getEnd();
+    }
+
     public Event(String description, boolean isDone, Time from, Time to) {
         super(description, isDone);
         this.from = from;

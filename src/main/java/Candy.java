@@ -1,189 +1,11 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Candy {
-    private static ArrayList<Task> allText = new ArrayList<>();
-    private static ArrayList<String> textToSave = new ArrayList<>();
-    private static Storage taskStorage = new Storage();
-
-    private static void listing() {
-        int max = allText.size();
-        System.out.println("    Here are the tasks in your list:");
-        for (int i = 0; i < max; i++) {
-            int order = i + 1;
-            Task theTask = allText.get(i);
-            System.out.println("    " + order + ". " + theTask.toString());
-        }
-    }
-
-    private static void marking(String number, boolean mark) {
-        int order;
-        try {
-            order = Integer.parseInt(number.trim());
-            if (order <= 0 || order > allText.size()) {
-                throw new EditTaskErrorException();
-            }
-            Task toMark = allText.get(order - 1);
-            if (mark) {
-                toMark.markDone();
-                System.out.println("    Nice! I've marked this task as done: \n    "
-                        + toMark.toString());
-            } else {
-                toMark.markUndone();
-                System.out.println("    Ok, I've marked this task as not done yet: \n    "
-                        + toMark.toString());
-            }
-            textToSave.set(order - 1, toMark.toSave());
-            String newList = "";
-            for (int i = 0; i < textToSave.size(); i++) {
-                newList = newList + textToSave.get(i) + System.lineSeparator();
-            }
-            taskStorage.write(newList, false);
-        } catch (NumberFormatException e) {
-            System.out.println("Please input a number after 'mark' or 'unmark'");
-        }
-    }
-
-    private static void delete(String number) {
-        int order;
-        try {
-            order = Integer.parseInt(number.trim());
-            if (order <= 0 || order > allText.size()) {
-                throw new EditTaskErrorException();
-            }
-            Task toDelete = allText.get(order - 1);
-            allText.remove(order - 1);
-            textToSave.remove(order - 1);
-            String newList = "";
-            for (int i = 0; i < textToSave.size(); i++) {
-                newList = newList + textToSave.get(i) + System.lineSeparator();
-            }
-            taskStorage.write(newList, false);
-            System.out.println("    Noted. I've removed this task:\n      " + toDelete.toString() +
-                            "\n    Now you have " + allText.size() + " tasks left");
-        } catch (NumberFormatException e) {
-            System.out.println("Please input a number after 'delete'");
-        }
-
-    }
-
-    private static void addTask(String text, String type, Time start, Time end) {
-        Task newTask;
-        if (type.equals("todo")) {
-            newTask = new Todo(text, false);
-        } else if (type.equals("deadline")) {
-            newTask = new Deadline(text, false, end);
-        } else {
-            newTask = new Event(text, false, start, end);
-        }
-        allText.add(newTask);
-        textToSave.add(newTask.toSave());
-        taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-        System.out.println("    Got it. I've added this task: \n      " +
-                newTask.toString() + "\n    Now you have " + allText.size() +
-                " tasks in your list.");
-    }
-
-    private static String getType(String text) {
-        String type;
-        if (text.startsWith("todo")) {
-            type = "todo";
-        } else if (text.startsWith("deadline")) {
-            type = "deadline";
-        } else if (text.startsWith("event")) {
-            type = "event";
-        } else {
-            type = null;
-        }
-
-        if (type == null) {
-            throw new InvalidInputException();
-        } else {
-            return type;
-        }
-    }
-
-    private static String getDescription(String text) {
-        String description;
-        if (text.startsWith("todo")) {
-            description = text.substring(4);
-        } else if (text.startsWith("deadline")) {
-            int index = text.indexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
-            description = text.substring(8, index - 1);
-        } else if (text.startsWith("event")) {
-            int getFrom = text.indexOf("/");
-            if (getFrom == -1) {
-                throw new InvalidInputException();
-            }
-            description = text.substring(5, getFrom - 1);
-        } else {
-            description = text;
-        }
-
-        if (description.isBlank()) {
-            throw new NoTaskException();
-        } else {
-            return description;
-        }
-    }
-
-    private static Time getStart(String text) {
-        if (!text.startsWith("event")) {
-            return null;
-        }
-
-        String start;
-        int getFrom = text.indexOf("/");
-        int getTo = text.lastIndexOf("/");
-        if (getFrom == getTo || getFrom == -1 || getTo == -1) {
-            throw new InvalidInputException();
-        }
-
-        start = text.substring(getFrom + 5, getTo - 1);
-        if (start.isBlank()) {
-            throw new NoStartException();
-        }
-
-        Time time = new Time(start.trim());
-        return time;
-    }
-
-    private static Time getEnd(String text) {
-        String end;
-        if (text.startsWith("deadline")) {
-            int index = text.indexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
-            end = text.substring(index + 3);
-            if (end.isBlank()) {
-                throw new NoEndException();
-            }
-        } else if (text.startsWith("event")) {
-            int index = text.lastIndexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
-            end = text.substring(index + 3);
-            if (end.isBlank()) {
-                throw new NoEndException();
-            }
-        } else {
-            return null;
-        }
-
-        Time time = new Time(end.trim());
-        return time;
-    }
+    private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
         System.out.println("Hello! I am Candy.\nWhat can I do for you?");
 
-        textToSave = taskStorage.readToString();
-        allText = taskStorage.readToTask();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String text = scanner.nextLine();
@@ -191,35 +13,32 @@ public class Candy {
                 System.out.println("    Bye. Hope to see you again! ^-^");
                 break;
             } else if (text.equals(("list"))) {
-                listing();
+                taskList.printList();
             } else if (text.startsWith("mark")) {
                 String number = text.substring(4);
                 try {
-                    marking(number, true);
+                    taskList.doMark(number, true);
                 } catch (EditTaskErrorException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("unmark")) {
                 String number = text.substring(6);
                 try {
-                    marking(number, false);
+                    taskList.doMark(number, false);
                 } catch (EditTaskErrorException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("delete")) {
                 String number = text.substring(6);
                 try {
-                    delete(number);
+                    taskList.delete(number);
                 } catch (EditTaskErrorException e) {
                     System.out.println(e.getMessage());
                 }
             }  else {
                 try {
-                    String type = getType(text);
-                    Time start = getStart(text);
-                    Time end = getEnd(text);
-                    String description = getDescription(text);
-                    addTask(description, type, start, end);
+                    TaskInformation information = new TaskInformation(text);
+                    taskList.addTask(information);
                 } catch (InvalidInputException e) {
                     System.out.println(e.getMessage());
                 } catch (NoStartException e) {
@@ -228,7 +47,7 @@ public class Candy {
                     System.out.println(e.getMessage());
                 } catch (NoTaskException e) {
                     System.out.println(e.getMessage());
-                } catch (InvalidTimeInput e) {
+                } catch (InvalidTimeInputException e) {
                     System.out.println(e.getMessage());
                 }
             }

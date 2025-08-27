@@ -11,7 +11,7 @@ public class Time {
         try {
             this.dateTime = LocalDateTime.parse(time, FORMAT);
         } catch (DateTimeParseException e) {
-            throw new InvalidTimeInput();
+            throw new InvalidTimeInputException();
         }
     }
 
