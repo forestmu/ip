@@ -19,4 +19,23 @@ public class TodoTaskTest {
         String actual = todo.toSave();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void markDoneTest() {
+        TaskInformation info = new TaskInformation("todo draw");
+        TodoTask todo = new TodoTask(info);
+        todo.markDone();
+        String expected = "[T][X] draw";
+        String actual = todo.toString();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void markUndoneTest() {
+        TodoTask todo = new TodoTask("draw", true);
+        todo.markUndone();
+        String expected = "[T][ ] draw";
+        String actual = todo.toString();
+        assertEquals(expected, actual);
+    }
 }
