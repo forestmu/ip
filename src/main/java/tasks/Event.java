@@ -1,3 +1,7 @@
+package tasks;
+
+import time.Time;
+
 public class Event extends Task {
 
     protected Time from;

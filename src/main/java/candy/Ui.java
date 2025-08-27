@@ -1,3 +1,5 @@
+package candy;
+
 public class Ui {
     public void printWelcome() {
         System.out.println("Hello! I am Candy.\nWhat can I do for you?");

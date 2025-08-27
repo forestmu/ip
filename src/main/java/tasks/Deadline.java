@@ -1,3 +1,7 @@
+package tasks;
+
+import time.Time;
+
 public class Deadline extends Task {
     protected Time by;
 

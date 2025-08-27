@@ -1,3 +1,11 @@
+package tasks;
+
+import exceptions.InvalidInputException;
+import exceptions.NoEndException;
+import exceptions.NoStartException;
+import exceptions.NoTaskException;
+import time.Time;
+
 public class TaskInformation {
     private String text;
     private String description;
@@ -8,6 +16,7 @@ public class TaskInformation {
     public TaskInformation(String text) {
         this.text = text;
     }
+
     public String getType() {
         if (text.startsWith("todo")) {
             type = "todo";
