@@ -34,6 +34,11 @@ public class Candy {
                         + toMark.toString());
             }
             textToSave.set(order - 1, toMark.toSave());
+            String newList = "";
+            for (int i = 0; i < textToSave.size(); i++) {
+                newList = newList + textToSave.get(i) + System.lineSeparator();
+            }
+            taskStorage.write(newList, false);
         } catch (NumberFormatException e) {
             System.out.println("Please input a number after 'mark' or 'unmark'");
         }
@@ -65,11 +70,11 @@ public class Candy {
     private static void addTask(String text, String type, String start, String end) {
         Task newTask;
         if (type.equals("todo")) {
-            newTask = new Todo(text);
+            newTask = new Todo(text, false);
         } else if (type.equals("deadline")) {
-            newTask = new Deadline(text, end);
+            newTask = new Deadline(text, false, end);
         } else {
-            newTask = new Event(text, start, end);
+            newTask = new Event(text, false, start, end);
         }
         allText.add(newTask);
         textToSave.add(newTask.toSave());
@@ -172,6 +177,8 @@ public class Candy {
     public static void main(String[] args) {
         System.out.println("Hello! I am Candy.\nWhat can I do for you?");
 
+        textToSave = taskStorage.readToString();
+        allText = taskStorage.readToTask();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String text = scanner.nextLine();
