@@ -53,7 +53,14 @@ public class Candy {
                 } catch (EditTaskErrorException e) {
                     ui.printError(e);
                 }
-            }  else {
+            } else if (text.startsWith("find")) {
+                String keyword = text.substring(4).trim();
+                if (keyword.isEmpty()) {
+                    System.out.println("Please provide a keyword to search for.");
+                } else {
+                    taskList.findTask(keyword);
+                }
+            } else {
                 try {
                     TaskInformation information = new TaskInformation(text);
                     taskList.addTask(information);

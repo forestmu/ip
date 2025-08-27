@@ -28,6 +28,10 @@ public class Task{
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String toSave() {
         return getStatusIcon() + " | " + this.description;
     }
