@@ -1,10 +1,11 @@
 todo hello
 deadline
 deadline math /by next week
+deadline math /by 06-12-2022 2359
 event class /from monday
-event class /from monday /to
-event class /from /to friday
-event class /from monday /to friday
+event class /from 01-12-2022 0000 /to
+event class /from /to 31-12-2022 2359
+event class /from 01-12-2022 0000 /to 31-12-2022 2359
 mark 1
 mark 2
 mark 3
