@@ -102,9 +102,10 @@ public class TaskList {
     /**
      * Adds task into array
      *
-     * @param information string description of the task
+     * @param text string description of the task
      */
-    public void addTask(TaskInformation information) {
+    public void addTask(String text) {
+        TaskInformation information = new TaskInformation(text);
         String type = information.getType();
         Task newTask;
         if (type.equals("todo")) {

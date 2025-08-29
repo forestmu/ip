@@ -1,13 +1,5 @@
 package candy;
 
-import exceptions.EditTaskErrorException;
-import exceptions.NoEndException;
-import exceptions.NoStartException;
-import exceptions.NoTaskException;
-import exceptions.InvalidInputException;
-import exceptions.InvalidTimeInputException;
-
-import tasks.TaskInformation;
 import tasks.TaskList;
 
 import java.util.Scanner;
@@ -16,8 +8,9 @@ import java.util.Scanner;
  * Represents a Candy chatbox.
  */
 public class Candy {
-    private TaskList taskList;
     private Ui ui;
+    private TaskList taskList;
+    private Parser parser;
 
     /**
      * Constructs a Candy.
@@ -27,17 +20,13 @@ public class Candy {
     public Candy(String filePath) {
         this.ui = new Ui();
         this.taskList = new TaskList(filePath);
+        this.parser = new Parser();
     }
 
     /**
      * Runs the Candy program.
      *
-     * @throws EditTaskErrorException when task does not exist
-     * @throws InvalidInputException when input did not start with the key words
-     * @throws InvalidTimeInputException when time is not keyed in the right format
-     * @throws NoTaskException when there is missing tasks
-     * @throws NoStartException when there is missing start time
-     * @throws NoEndException when there is missing end time
+     *
      */
     public void run() {
         ui.printWelcome();
@@ -45,55 +34,7 @@ public class Candy {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String text = scanner.nextLine();
-            if (text.equals("bye")) {
-                ui.printBye();
-                break;
-            } else if (text.equals(("list"))) {
-                taskList.printList();
-            } else if (text.startsWith("mark")) {
-                String number = text.substring(4);
-                try {
-                    taskList.doMark(number, true);
-                } catch (EditTaskErrorException e) {
-                    ui.printError(e);
-                }
-            } else if (text.startsWith("unmark")) {
-                String number = text.substring(6);
-                try {
-                    taskList.doMark(number, false);
-                } catch (EditTaskErrorException e) {
-                    ui.printError(e);
-                }
-            } else if (text.startsWith("delete")) {
-                String number = text.substring(6);
-                try {
-                    taskList.delete(number);
-                } catch (EditTaskErrorException e) {
-                    ui.printError(e);
-                }
-            } else if (text.startsWith("find")) {
-                String keyword = text.substring(4).trim();
-                if (keyword.isEmpty()) {
-                    System.out.println("Please provide a keyword to search for.");
-                } else {
-                    taskList.findTask(keyword);
-                }
-            } else {
-                try {
-                    TaskInformation information = new TaskInformation(text);
-                    taskList.addTask(information);
-                } catch (InvalidInputException e) {
-                    ui.printError(e);
-                } catch (NoStartException e) {
-                    ui.printError(e);
-                } catch (NoEndException e) {
-                    ui.printError(e);
-                } catch (NoTaskException e) {
-                    ui.printError(e);
-                } catch (InvalidTimeInputException e) {
-                    ui.printError(e);
-                }
-            }
+            parser.parse(text, taskList, ui);
         }
     }
 
