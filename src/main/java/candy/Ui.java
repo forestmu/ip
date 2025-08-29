@@ -1,5 +1,8 @@
 package candy;
 
+/**
+ * Represents a class that prints messages to user
+ */
 public class Ui {
     /**
      * Prints the welcome line

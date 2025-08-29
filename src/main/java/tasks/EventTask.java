@@ -12,7 +12,7 @@ public class EventTask extends Task {
     protected Time to;
 
     /**
-     * Constructor of Event
+     * Constructor of an event task
      *
      * @param information TaskInformation object holding information of task
      */
@@ -23,7 +23,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * Constructor of Event
+     * Constructor of an event task
      *
      * @param description String description of the task
      * @param from the start time of Event
@@ -36,20 +36,12 @@ public class EventTask extends Task {
         this.to = to;
     }
 
-    /**
-     * Returns string of the task
-     * Used for printing out task
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from:" + from.toPrint()
                 + " to:" + to.toPrint() + ")";
     }
 
-    /**
-     * Returns string of task
-     * Used for printing task in storage
-     */
     @Override
     public String toSave() {
         return "E | " + super.toSave() + " | " + from.toString()

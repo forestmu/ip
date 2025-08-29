@@ -10,7 +10,7 @@ public class DeadlineTask extends Task {
     protected Time by;
 
     /**
-     * Constructor of Deadline
+     * Constructor of a Deadline task
      *
      * @param information TaskInformation object holding information of task
      */
@@ -20,7 +20,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Constructor of deadline
+     * Constructor of a deadline task
      *
      * @param description String description of the task
      * @param by  Time object of the due date
@@ -31,19 +31,11 @@ public class DeadlineTask extends Task {
         this.by = by;
     }
 
-    /**
-     * Returns string of the task
-     * Used for printing out task
-     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by.toPrint() + ")";
     }
 
-    /**
-     * Returns string of task
-     * Used for printing task in storage
-     */
     @Override
     public String toSave() {
         return "D | " + super.toSave() + " | " + by.toString();

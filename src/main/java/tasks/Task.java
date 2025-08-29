@@ -6,7 +6,7 @@ public class Task{
     private TaskInformation information;
 
     /**
-     * Constructor of Task
+     * Constructs a Task
      *
      * @param information TaskInformation object holding information of task
      */
@@ -17,7 +17,7 @@ public class Task{
     }
 
     /**
-     * Constructor of Task
+     * Constructs a Task
      *
      * @param description String description of the task
      * @param isDone  true if task is completed. False otherwise
@@ -50,6 +50,9 @@ public class Task{
         this.isDone = false;
     }
 
+    /**
+     * Returns the description
+     */
     public String getDescription() {
         return this.description;
     }

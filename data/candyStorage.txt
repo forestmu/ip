@@ -1,4 +1,4 @@
-D |   | book | 11-11-1111 1111
+D | X | book | 11-11-1111 1111
 T |   | book
 T |   | book
 T |   | book

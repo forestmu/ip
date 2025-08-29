@@ -35,6 +35,7 @@ public class TaskList {
             System.out.println("    " + order + ". " + theTask.toString());
         }
     }
+
     /**
      * Marks a task in the array as given mark
      *
@@ -99,7 +100,7 @@ public class TaskList {
     }
 
     /**
-     * Add task into array
+     * Adds task into array
      *
      * @param information string description of the task
      */
@@ -121,6 +122,12 @@ public class TaskList {
                 + " tasks in your list.");
     }
 
+
+    /**
+     * Prints all the task found with keyword
+     *
+     * @param keyword string description of what task to find
+     */
     public void findTask(String keyword) {
         ArrayList<Task> foundList = new ArrayList<>();
         int max = allText.size();

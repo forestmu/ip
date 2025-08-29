@@ -6,7 +6,7 @@ package tasks;
 public class TodoTask extends Task {
 
     /**
-     * Constructor of Todo
+     * Constructor of Todo task
      *
      * @param information TaskInformation object holding information of task
      */
@@ -15,7 +15,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Constructor of Todo
+     * Constructor of Todo task
      *
      * @param description String description of the task
      * @param isDone  true if task is completed. False otherwise
@@ -24,19 +24,11 @@ public class TodoTask extends Task {
         super(description, isDone);
     }
 
-    /**
-     * Returns string of the task
-     * Used for printing out task
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
-    /**
-     * Returns string of task
-     * Used for printing task in storage
-     */
     @Override
     public String toSave() {
         return "T | " + super.toSave();
