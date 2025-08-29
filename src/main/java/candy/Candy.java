@@ -8,9 +8,7 @@ import java.util.Scanner;
  * Represents a Candy chatbox.
  */
 public class Candy {
-    private Ui ui;
     private TaskList taskList;
-    private Parser parser;
 
     /**
      * Constructs a Candy.
@@ -18,9 +16,7 @@ public class Candy {
      * @param filePath The path of the storage file.
      */
     public Candy(String filePath) {
-        this.ui = new Ui();
         this.taskList = new TaskList(filePath);
-        this.parser = new Parser();
     }
 
     /**
@@ -29,12 +25,13 @@ public class Candy {
      *
      */
     public void run() {
-        ui.printWelcome();
+        boolean isContinue = true;
+        Ui.printWelcome();
 
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        while (isContinue) {
             String text = scanner.nextLine();
-            parser.parse(text, taskList, ui);
+            isContinue = Parser.parse(text, taskList);
         }
     }
 

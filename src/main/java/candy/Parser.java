@@ -14,11 +14,11 @@ import tasks.TaskList;
  */
 public class Parser {
 
+
     /**
      * Parse the command
      *
      * @param text String description of what user types
-     * @param ui ui instance
      * @param taskList List of task of current candy
      *
      * @throws EditTaskErrorException when task does not exist
@@ -29,53 +29,79 @@ public class Parser {
      * @throws NoEndException when there is missing end time
      * *
      */
-    public void parse(String text, TaskList taskList, Ui ui) {
-        if (text.equals("bye")) {
-            ui.printBye();
-        } else if (text.equals(("list"))) {
+    public static boolean parse(String text, TaskList taskList) {
+        Command commandWord;
+        try {
+            commandWord = Command.fromInput(text);
+        } catch (InvalidInputException e) {
+            Ui.printError(e);
+            return true;
+        }
+
+        String number;
+        switch (commandWord) {
+        case BYE:
+            Ui.printBye();
+            return false;
+        case LIST:
             taskList.printList();
-        } else if (text.startsWith("mark")) {
-            String number = text.substring(4);
+            break;
+        case MARK:
+            number = text.substring(4);
             try {
                 taskList.doMark(number, true);
             } catch (EditTaskErrorException e) {
-                ui.printError(e);
+                Ui.printError(e);
             }
-        } else if (text.startsWith("unmark")) {
-            String number = text.substring(6);
+            break;
+        case UNMARK:
+            number = text.substring(6);
             try {
                 taskList.doMark(number, false);
             } catch (EditTaskErrorException e) {
-                ui.printError(e);
+                Ui.printError(e);
             }
-        } else if (text.startsWith("delete")) {
-            String number = text.substring(6);
+            break;
+        case DELETE:
+            number = text.substring(6);
             try {
                 taskList.delete(number);
             } catch (EditTaskErrorException e) {
-                ui.printError(e);
+                Ui.printError(e);
             }
-        } else if (text.startsWith("find")) {
+        case FIND:
             String keyword = text.substring(4).trim();
             if (keyword.isEmpty()) {
                 System.out.println("Please provide a keyword to search for.");
             } else {
                 taskList.findTask(keyword);
             }
-        } else {
+            break;
+        case TODO:
             try {
-                taskList.addTask(text);
-            } catch (InvalidInputException e) {
-                ui.printError(e);
-            } catch (NoStartException e) {
-                ui.printError(e);
-            } catch (NoEndException e) {
-                ui.printError(e);
-            } catch (NoTaskException e) {
-                ui.printError(e);
-            } catch (InvalidTimeInputException e) {
-                ui.printError(e);
+                taskList.addTask(text, "todo");
+            } catch (NoEndException | NoStartException
+                     | NoTaskException | InvalidTimeInputException e) {
+                Ui.printError(e);
             }
+            break;
+        case DEADLINE:
+            try {
+                taskList.addTask(text, "deadline");
+            } catch (NoEndException | NoStartException
+                     | NoTaskException | InvalidTimeInputException e) {
+                Ui.printError(e);
+            }
+            break;
+        case EVENT:
+            try {
+                taskList.addTask(text, "event");
+            } catch (NoEndException | NoStartException
+                     | NoTaskException | InvalidTimeInputException e) {
+                Ui.printError(e);
+            }
+            break;
         }
+        return true;
     }
 }

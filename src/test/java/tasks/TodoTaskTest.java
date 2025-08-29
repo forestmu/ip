@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TodoTaskTest {
     @Test
     public void todoFormatStringTest() {
-        TaskInformation info = new TaskInformation("todo read book");
+        TaskInformation info = new TaskInformation("todo read book", "todo");
         TodoTask todo = new TodoTask(info);
         String expected = "[T][ ] read book";
         String actual = todo.toString();
@@ -22,7 +22,7 @@ public class TodoTaskTest {
 
     @Test
     public void markDoneTest() {
-        TaskInformation info = new TaskInformation("todo draw");
+        TaskInformation info = new TaskInformation("todo draw", "todo");
         TodoTask todo = new TodoTask(info);
         todo.markDone();
         String expected = "[T][X] draw";

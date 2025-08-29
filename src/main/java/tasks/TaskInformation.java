@@ -20,30 +20,18 @@ public class TaskInformation {
      * Constructor of TaskInformation
      *
      * @param text string description of the whole command
+     * @param type Type of the
      */
-    public TaskInformation(String text) {
+    public TaskInformation(String text, String type) {
         this.text = text;
+        this.type = type;
     }
 
     /**
      * Returns string of the type of task
      */
     public String getType() {
-        if (text.startsWith("todo")) {
-            type = "todo";
-        } else if (text.startsWith("deadline")) {
-            type = "deadline";
-        } else if (text.startsWith("event")) {
-            type = "event";
-        } else {
-            type = null;
-        }
-
-        if (type == null) {
-            throw new InvalidInputException();
-        } else {
-            return type;
-        }
+        return type;
     }
 
     /**

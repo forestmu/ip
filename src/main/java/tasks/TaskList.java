@@ -104,9 +104,8 @@ public class TaskList {
      *
      * @param text string description of the task
      */
-    public void addTask(String text) {
-        TaskInformation information = new TaskInformation(text);
-        String type = information.getType();
+    public void addTask(String text, String type) {
+        TaskInformation information = new TaskInformation(text, type);
         Task newTask;
         if (type.equals("todo")) {
             newTask = new TodoTask(information);
