@@ -16,10 +16,18 @@ public class Parser {
 
     private static boolean isConversationOver = false;
 
+    /**
+     * Sets the isConversationOver boolean
+     *
+     * @param newIsOver boolean to set
+     */
     public static void setIsConversationOver(boolean newIsOver) {
         isConversationOver = newIsOver;
     }
 
+    /**
+     * Returns isConversationOver boolean
+     */
     public static boolean getIsConversationOver() {
         return isConversationOver;
     }

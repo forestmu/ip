@@ -8,7 +8,7 @@ public class Ui {
      * Returns String of the welcome line
      */
     public static String printWelcome() {
-        return "Hello! I am Candy.\nWhat can I do for you?)";
+        return "Hello! I am Candy. ^-^ \nWhat can I do for you?)";
     }
 
     /**
