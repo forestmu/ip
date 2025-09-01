@@ -2,8 +2,6 @@ package candy;
 
 import tasks.TaskList;
 
-import java.util.Scanner;
-
 /**
  * Represents a Candy chatbox.
  */
@@ -20,27 +18,9 @@ public class Candy {
     }
 
     /**
-     * Runs the Candy program.
-     *
-     *
+     * Returns string dialog by candy bot
      */
-    public void run() {
-        boolean isContinue = true;
-        Ui.printWelcome();
-
-        Scanner scanner = new Scanner(System.in);
-        while (isContinue) {
-            String text = scanner.nextLine();
-            isContinue = Parser.parse(text, taskList);
-        }
-    }
-
-    /**
-     * Entry point of Candy
-     *
-     * @param args not used
-     */
-    public static void main(String[] args) {
-        new Candy("./data/candyStorage.txt").run();
+    public String getResponse(String input) {
+        return Parser.parse(input, taskList);
     }
 }

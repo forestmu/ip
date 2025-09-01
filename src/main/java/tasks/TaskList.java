@@ -24,40 +24,42 @@ public class TaskList {
     }
 
     /**
-     * Prints out all task in allText as string
+     * Returns string of all tasks in allText
      */
-    public void printList() {
+    public String printList() {
         int max = allText.size();
-        System.out.println("    Here are the tasks in your list:");
+        String toReturn = "Here are the tasks in your list: " + System.lineSeparator();
         for (int i = 0; i < max; i++) {
             int order = i + 1;
             Task theTask = allText.get(i);
-            System.out.println("    " + order + ". " + theTask.toString());
+            toReturn = toReturn + order + ". " + theTask.toString() + System.lineSeparator();
         }
+        return toReturn;
     }
 
     /**
-     * Marks a task in the array as given mark
+     * Returns a string notifying that a task in the array
+     * is marked or unmarked
      *
      * @param number the index of where task is stored
      * @param mark to mark task as done/undone
      */
-    public void doMark(String number, boolean mark) {
+    public String doMark(String number, boolean mark) {
         int order;
         try {
             order = Integer.parseInt(number.trim());
             if (order <= 0 || order > allText.size()) {
                 throw new EditTaskErrorException();
             }
+
             Task toMark = allText.get(order - 1);
+            String dialog;
             if (mark) {
                 toMark.markDone();
-                System.out.println("    Nice! I've marked this task as done: \n    "
-                        + toMark.toString());
+                dialog = "Nice! I've marked this task as done: \n    ";
             } else {
                 toMark.markUndone();
-                System.out.println("    Ok, I've marked this task as not done yet: \n    "
-                        + toMark.toString());
+                dialog = "Ok, I've marked this task as not done yet: \n    " ;
             }
             textToSave.set(order - 1, toMark.toSave());
             String newList = "";
@@ -65,17 +67,18 @@ public class TaskList {
                 newList = newList + textToSave.get(i) + System.lineSeparator();
             }
             taskStorage.write(newList, false);
+            return dialog + toMark.toString();
         } catch (NumberFormatException e) {
-            System.out.println("Please input a number after 'mark' or 'unmark'");
+            return "Please input a number after 'mark' or 'unmark'";
         }
     }
 
     /**
-     * Deletes a task in array
+     * Returns string notifying a task is deleted from array
      *
      * @param number index of where task to delete is stored
      */
-    public void delete(String number) {
+    public String delete(String number) {
         int order;
         try {
             order = Integer.parseInt(number.trim());
@@ -90,21 +93,21 @@ public class TaskList {
                 newList = newList + textToSave.get(i) + System.lineSeparator();
             }
             taskStorage.write(newList, false);
-            System.out.println("    Noted. I've removed this task:\n      "
+            return "Noted. I've removed this task:\n      "
                     + toDelete.toString() + "\n    Now you have "
-                    + allText.size() + " tasks left");
+                    + allText.size() + " tasks left";
         } catch (NumberFormatException e) {
-            System.out.println("Please input a number after 'delete'");
+            return "Please input a number after 'delete'";
         }
 
     }
 
     /**
-     * Adds task into array
+     * Returns string to notify that task is added
      *
      * @param text string description of the task
      */
-    public void addTask(String text, String type) {
+    public String addTask(String text, String type) {
         TaskInformation information = new TaskInformation(text, type);
         Task newTask;
         if (type.equals("todo")) {
@@ -117,18 +120,18 @@ public class TaskList {
         allText.add(newTask);
         textToSave.add(newTask.toSave());
         taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-        System.out.println("    Got it. I've added this task: \n      "
+        return "Got it. I've added this task: \n      "
                 + newTask.toString() + "\n    Now you have " + allText.size()
-                + " tasks in your list.");
+                + " tasks in your list.";
     }
 
 
     /**
-     * Prints all the task found with keyword
+     * Returns string of  all the task found with keyword
      *
      * @param keyword string description of what task to find
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         ArrayList<Task> foundList = new ArrayList<>();
         int max = allText.size();
 
@@ -144,15 +147,16 @@ public class TaskList {
         }
 
         if (foundList.isEmpty()) {
-            System.out.println("    No task exist");
+            return "No task exist";
         } else {
-            System.out.println("    Here are the matching tasks in your list: ");
+            String toReturn = "Here are the matching tasks in your list: " + System.lineSeparator();
             int sized = foundList.size();
             for (int i = 0; i < sized; i++) {
                 int order = i + 1;
                 Task theTask = foundList.get(i);
-                System.out.println("    " + order + ". " + theTask.toString());
+                toReturn = toReturn + order + ". " + theTask.toString() + System.lineSeparator();
             }
+            return toReturn;
         }
     }
 }

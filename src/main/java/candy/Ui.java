@@ -5,23 +5,23 @@ package candy;
  */
 public class Ui {
     /**
-     * Prints the welcome line
+     * Returns String of the welcome line
      */
-    public static void printWelcome() {
-        System.out.println("Hello! I am Candy.\nWhat can I do for you?");
+    public static String printWelcome() {
+        return "Hello! I am Candy.\nWhat can I do for you?)";
     }
 
     /**
-     * Prints the goodbye line
+     * Returns String of the goodbye line
      */
-    public static void printBye() {
-        System.out.println("    Bye. Hope to see you again! ^-^");
+    public static String printBye() {
+        return "Bye. Hope to see you again! ^-^";
     }
 
     /**
-     * Prints the error message
+     * Returns String of the error message
      */
-    public static void printError(Exception e) {
-        System.out.println(e.getMessage());
+    public static String printError(Exception e) {
+        return e.getMessage();
     }
 }

@@ -14,9 +14,17 @@ import tasks.TaskList;
  */
 public class Parser {
 
+    private static boolean isConversationOver = false;
 
+    public static void setIsConversationOver(boolean newIsOver) {
+        isConversationOver = newIsOver;
+    }
+
+    public static boolean getIsConversationOver() {
+        return isConversationOver;
+    }
     /**
-     * Parse the command
+     * Returns String of the reply by candy chatbot
      *
      * @param text String description of what user types
      * @param taskList List of task of current candy
@@ -29,79 +37,71 @@ public class Parser {
      * @throws NoEndException when there is missing end time
      * *
      */
-    public static boolean parse(String text, TaskList taskList) {
+    public static String parse(String text, TaskList taskList) {
         Command commandWord;
         try {
             commandWord = Command.fromInput(text);
         } catch (InvalidInputException e) {
-            Ui.printError(e);
-            return true;
+            return Ui.printError(e);
         }
 
         String number;
         switch (commandWord) {
         case BYE:
-            Ui.printBye();
-            return false;
+            isConversationOver = true;
+            return Ui.printBye();
         case LIST:
-            taskList.printList();
-            break;
+            return taskList.printList();
         case MARK:
             number = text.substring(4);
             try {
-                taskList.doMark(number, true);
+                return taskList.doMark(number, true);
             } catch (EditTaskErrorException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
-            break;
         case UNMARK:
             number = text.substring(6);
             try {
-                taskList.doMark(number, false);
+                return taskList.doMark(number, false);
             } catch (EditTaskErrorException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
-            break;
         case DELETE:
             number = text.substring(6);
             try {
-                taskList.delete(number);
+                return taskList.delete(number);
             } catch (EditTaskErrorException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
         case FIND:
             String keyword = text.substring(4).trim();
             if (keyword.isEmpty()) {
-                System.out.println("Please provide a keyword to search for.");
+                return "Please provide a keyword to search for.";
             } else {
-                taskList.findTask(keyword);
+                return taskList.findTask(keyword);
             }
-            break;
         case TODO:
             try {
-                taskList.addTask(text, "todo");
+                return taskList.addTask(text, "todo");
             } catch (NoEndException | NoStartException
                      | NoTaskException | InvalidTimeInputException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
-            break;
         case DEADLINE:
             try {
-                taskList.addTask(text, "deadline");
+                return taskList.addTask(text, "deadline");
             } catch (NoEndException | NoStartException
                      | NoTaskException | InvalidTimeInputException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
-            break;
         case EVENT:
             try {
-                taskList.addTask(text, "event");
+                return taskList.addTask(text, "event");
             } catch (NoEndException | NoStartException
                      | NoTaskException | InvalidTimeInputException e) {
-                Ui.printError(e);
+                return Ui.printError(e);
             }
-            break;
         }
-        return true;
+        return null;
     }
 }
