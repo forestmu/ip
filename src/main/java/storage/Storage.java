@@ -34,10 +34,12 @@ public class Storage {
             this.dataFolder = candyStorage.getParentFile();
             //makes folder and file if doesn't exist
             if (dataFolder != null && !dataFolder.exists()) {
-                dataFolder.mkdir();
+                boolean isFolderCreated = dataFolder.mkdir();
+                assert isFolderCreated == true : "Error: Folder does not exist";
             }
             if (!candyStorage.exists()) {
-                candyStorage.createNewFile();
+                boolean isFileCreated = candyStorage.createNewFile();
+                assert isFileCreated == true : "Error: FIle does not exist";
             }
         } catch (IOException e) {
             Ui.printError(e);

@@ -57,9 +57,11 @@ public class TaskList {
             String dialog;
             if (mark) {
                 toMark.markDone();
+                assert toMark.getStatusIcon().equals("X") : "task should be marked done";
                 dialog = "Nice! I've marked this task as done: \n    ";
             } else {
                 toMark.markUndone();
+                assert toMark.getStatusIcon().equals(" ") : "task should be marked undone";
                 dialog = "Ok, I've marked this task as not done yet: \n    " ;
             }
 
