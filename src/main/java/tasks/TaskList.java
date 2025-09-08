@@ -1,6 +1,8 @@
 package tasks;
 
+import candy.Ui;
 import exceptions.EditTaskErrorException;
+import exceptions.InvalidInputException;
 import storage.Storage;
 import java.util.ArrayList;
 
@@ -191,23 +193,59 @@ public class TaskList {
     /**
      * Updates the tasks in the storage
      */
-    public String updateTask(String number) {
+    public String updateTask(String text) {
         int order;
         try {
+            String details = text.substring(4);
+
+            int detailStart = details.indexOf("/");
+            if (detailStart == -1) {
+                throw new InvalidInputException();
+            }
+
+            String number = details.substring(0, detailStart).trim();
             order = Integer.parseInt(number.trim());
             if (order <= 0 || order > allText.size()) {
                 throw new EditTaskErrorException();
             }
 
            Task toEdit = allText.get(order - 1);
+            //edit task:
+            String taskDetails = details.substring(detailStart + 1).trim();
 
-            //edit the task in the array
+            String type;
+            if (taskDetails.startsWith("todo")) {
+                type = "todo";
+            } else if (taskDetails.startsWith("deadline")) {
+                type = "deadline";
+            } else if (taskDetails.startsWith("event")) {
+                type = "event";
+            } else {
+                throw new InvalidInputException();
+            }
+
+            TaskInformation temporary = new TaskInformation(taskDetails, type);
+            String description = temporary.getDescription();
+            String start = temporary.getStartString();
+            String end = temporary.getEndString();
+
+            toEdit.setText(taskDetails);
+            toEdit.setType(type);
+            toEdit.setDescription(description);
+            toEdit.setStartTime(start);
+            toEdit.setEndTime(end);
+
+            //edit the task in the string array
+            textToSave.set(order - 1, toEdit.toSave());
 
             overwriteStorage();
 
-            return "";
+            return "I have updated the following task to: \n"
+                    + toEdit.toString();
         } catch (NumberFormatException e) {
             return "Please input a number after 'edit' to indicate which task to update";
+        } catch (Exception e) {
+            return Ui.printError(e);
         }
     }
 

@@ -1,5 +1,7 @@
 package tasks;
 
+import time.Time;
+
 public class Task{
     protected String description;
     protected boolean isDone;
@@ -16,16 +18,16 @@ public class Task{
         this.isDone = false;
     }
 
-    /**
-     * Constructs a Task
-     *
-     * @param description String description of the task
-     * @param isDone  true if task is completed. False otherwise
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
-    }
+//    /**
+//     * Constructs a Task
+//     *
+//     * @param description String description of the task
+//     * @param isDone  true if task is completed. False otherwise
+//     */
+//    public Task(String description, boolean isDone) {
+//        this.description = description;
+//        this.isDone = isDone;
+//    }
 
     /**
      * Returns string of isDone
@@ -55,6 +57,42 @@ public class Task{
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Updates the description
+     */
+    public void setDescription(String description) {
+        this.information.setDescription(description);
+        this.description = description;
+    }
+
+    /**
+     * Updates the type
+     */
+    public void setType(String type) {
+        this.information.setType(type);
+    }
+
+    /**
+     * Updates the start time
+     */
+    public void setStartTime(String start) {
+        this.information.setStartTime(start);
+    }
+
+    /**
+     * Updates the end time
+     */
+    public void setEndTime(String end) {
+        this.information.setEndTime(end);
+    }
+
+    /**
+     * Updates the text
+     */
+    public void setText(String text) {
+        this.information.setText(text);
     }
 
     /**

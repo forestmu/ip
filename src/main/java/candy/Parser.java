@@ -88,8 +88,6 @@ public class Parser {
             } else {
                 return taskList.findTask(keyword);
             }
-        case EDIT:
-            number = text.substring(4);
         case TODO:
             try {
                 return taskList.addTask(text, "todo");
@@ -110,6 +108,14 @@ public class Parser {
             } catch (NoEndException | NoStartException
                      | NoTaskException | InvalidTimeInputException e) {
                 return Ui.printError(e);
+            }
+        case EDIT:
+            try {
+                return taskList.updateTask(text);
+            } catch (NoTaskException | NoStartException | NoEndException
+                     | InvalidInputException | InvalidTimeInputException
+                     | EditTaskErrorException e) {
+                Ui.printError(e);
             }
         }
         return null;

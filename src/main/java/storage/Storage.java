@@ -2,10 +2,7 @@ package storage;
 
 import candy.Ui;
 import exceptions.InvalidTaskReadException;
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.TodoTask;
-import tasks.Task;
+import tasks.*;
 import time.Time;
 
 import java.io.File;
@@ -103,24 +100,30 @@ public class Storage {
 
                 //create the task
                 if (type.equals("T")) {
-                    task = new TodoTask(description, isDone);
+                    String infoString = "todo " + description;
+                    TaskInformation info = new TaskInformation(infoString, "todo");
+                    task = new TodoTask(info);
                 } else if (type.equals("D")) {
                     //deadline task has end time
                     String end = parts[3].trim();
-                    Time endTime = new Time(end);
-                    task = new DeadlineTask(description, isDone, endTime);
+                    String infoString ="deadline " + description + " /by " + end;
+                    TaskInformation info = new TaskInformation(infoString, "deadline");
+                    task = new DeadlineTask(info);
                 } else if (type.equals("E")) {
                     //event task have start and end time
                     String start = parts[3].trim();
                     String end = parts[4].trim();
-                    Time startTime = new Time(start);
-                    Time endTime = new Time(end);
-                    task = new EventTask(description, isDone, startTime, endTime);
+                    String infoString = "event " + description + " /from " + start + " /to " + end;
+                    TaskInformation info = new TaskInformation(infoString, "event");
+                    task = new EventTask(info);
                 } else {
                     //should not reach here
                     throw new InvalidTaskReadException();
                 }
 
+                if (isDone) {
+                    task.markDone();
+                }
                 list.add(task);
             }
             scanner.close();
