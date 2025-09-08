@@ -10,10 +10,18 @@ public class InvalidInputException extends RuntimeException {
      * Prints specific message
      */
     public InvalidInputException() {
-        super("OOPS! If you are adding in a task, "
-                + "please start with 'todo', 'deadline' or 'event'.\n"
-                + "Add a '/by (end)' for deadline or '/from (start) /to (end)' for events\n"
-                + "Else, start with 'mark' or 'unmark' to edit task.\n"
-                + "Start with 'delete' to delete task");
+        super("OOPS! Follow the following format: \n"
+                + "1. To add Tasks: \n"
+                + "     - 'todo <task>'\n"
+                + "     - 'deadline <task> /by <dd-mm-yyyy HHmm>'\n"
+                + "     - 'events <task> /from <dd-mm-yyyy HHmm> /to <dd-mm-yyyy HHmm>'\n"
+                + "2. To edit tasks: \n"
+                + "     - 'mark <task number>' \n"
+                + "     - 'unmark <task number>'.\n"
+                + "     - 'delete <task number>' \n"
+                + "     - 'edit <task number> /[same as adding task but without 'todo', 'deadline' or 'event']'\n"
+                + "3. To view/find tasks:\n"
+                + "     - 'list'\n"
+                + "     - 'find <keyword>'");
     }
 }

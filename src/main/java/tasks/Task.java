@@ -1,5 +1,7 @@
 package tasks;
 
+import time.Time;
+
 public class Task{
     protected String description;
     protected boolean isDone;
@@ -16,16 +18,16 @@ public class Task{
         this.isDone = false;
     }
 
-    /**
-     * Constructs a Task
-     *
-     * @param description String description of the task
-     * @param isDone  true if task is completed. False otherwise
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
-    }
+//    /**
+//     * Constructs a Task
+//     *
+//     * @param description String description of the task
+//     * @param isDone  true if task is completed. False otherwise
+//     */
+//    public Task(String description, boolean isDone) {
+//        this.description = description;
+//        this.isDone = isDone;
+//    }
 
     /**
      * Returns string of isDone
@@ -55,6 +57,56 @@ public class Task{
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the type
+     */
+    public String getType() {
+        return this.information.getType();
+    }
+
+    /**
+     * Updates the description
+     */
+    public void setDescription(String description) {
+        this.information.setDescription(description);
+        this.description = description;
+    }
+
+    /**
+     * Updates the start time
+     */
+    public void setStartTime(String start) {
+        this.information.setStartTime(start);
+    }
+
+    /**
+     * Returns the start time
+     */
+    public Time getStartTime() {
+        return this.information.getStartTime();
+    }
+
+    /**
+     * Updates the end time
+     */
+    public void setEndTime(String end) {
+        this.information.setEndTime(end);
+    }
+
+    /**
+     * Returns the end time
+     */
+    public Time getEndTime() {
+        return this.information.getEndTime();
+    }
+
+    /**
+     * Updates the text
+     */
+    public void setText(String text) {
+        this.information.setText(text);
     }
 
     /**

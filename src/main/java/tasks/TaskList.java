@@ -1,6 +1,8 @@
 package tasks;
 
+import candy.Ui;
 import exceptions.EditTaskErrorException;
+import exceptions.InvalidInputException;
 import storage.Storage;
 import java.util.ArrayList;
 
@@ -21,6 +23,20 @@ public class TaskList {
         this.taskStorage = new Storage(filePath);
         this.textToSave = taskStorage.readToString();
         this.allText = taskStorage.readToTask();
+    }
+
+    /**
+     * Rewrites the tasks in the storage
+     * to the updated version
+     */
+    public void overwriteStorage() {
+        //update the string of tasks
+        String newList = "";
+        for (int i = 0; i < textToSave.size(); i++) {
+            newList = newList + textToSave.get(i) + System.lineSeparator();
+        }
+        //save to storage
+        taskStorage.write(newList, false);
     }
 
     /**
@@ -67,13 +83,9 @@ public class TaskList {
 
             //edit the task in the array
             textToSave.set(order - 1, toMark.toSave());
-            //update the string of tasks
-            String newList = "";
-            for (int i = 0; i < textToSave.size(); i++) {
-                newList = newList + textToSave.get(i) + System.lineSeparator();
-            }
-            //save to storage
-            taskStorage.write(newList, false);
+
+            overwriteStorage();
+
             return dialog + toMark.toString();
         } catch (NumberFormatException e) {
             return "Please input a number after 'mark' or 'unmark'";
@@ -98,13 +110,7 @@ public class TaskList {
             allText.remove(order - 1);
             textToSave.remove(order - 1);
 
-            //update the string of tasks
-            String newList = "";
-            for (int i = 0; i < textToSave.size(); i++) {
-                newList = newList + textToSave.get(i) + System.lineSeparator();
-            }
-            //save to storage
-            taskStorage.write(newList, false);
+            overwriteStorage();
 
             return "Noted. I've removed this task:\n      "
                     + toDelete.toString() + "\n    Now you have "
@@ -183,4 +189,63 @@ public class TaskList {
         }
         return toReturn;
     }
+
+    /**
+     * Updates the tasks in the storage
+     */
+    public String updateTask(String text) {
+        int order;
+        try {
+            //String after the edit word
+            String details = text.substring(4);
+
+            //get index of the task to edit
+            int detailStart = details.indexOf("/");
+            if (detailStart == -1) {
+                throw new InvalidInputException();
+            }
+
+            String number = details.substring(0, detailStart).trim();
+            order = Integer.parseInt(number.trim());
+            if (order <= 0 || order > allText.size()) {
+                throw new EditTaskErrorException();
+            }
+
+            Task toEdit = allText.get(order - 1);
+
+            //String after specifying which task to edit
+            String taskDetails = details.substring(detailStart + 1).trim();
+
+            String type = toEdit.getType();
+            String fullText = type + " " + taskDetails;
+
+            TaskInformation temporary = new TaskInformation(fullText, type);
+            String description = temporary.getDescription();
+            String start = temporary.getStartString();
+            String end = temporary.getEndString();
+
+            toEdit.setText(taskDetails);
+            toEdit.setDescription(description);
+            if (type.equals("deadline") || type.equals("event")) {
+                toEdit.setEndTime(end);
+            }
+
+            if (type.equals("event")) {
+                toEdit.setStartTime(start);
+            }
+
+            //edit the task in the string array
+            textToSave.set(order - 1, toEdit.toSave());
+
+            overwriteStorage();
+
+            return "I have updated the following task to: \n"
+                    + toEdit.toString();
+        } catch (NumberFormatException e) {
+            return "Please input a number after 'edit' to indicate which task to update";
+        } catch (Exception e) {
+            return Ui.printError(e);
+        }
+    }
+
 }

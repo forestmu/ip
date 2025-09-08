@@ -18,23 +18,23 @@ public class EventTask extends Task {
      */
     public EventTask(TaskInformation information) {
         super(information);
-        this.from = information.getStart();
-        this.to = information.getEnd();
+        this.from = information.getStartTime();
+        this.to = information.getEndTime();
     }
 
-    /**
-     * Constructor of an event task
-     *
-     * @param description String description of the task
-     * @param from the start time of Event
-     * @param to  the end time of Event
-     * @param isDone  true if task is completed. False otherwise
-     */
-    public EventTask(String description, boolean isDone, Time from, Time to) {
-        super(description, isDone);
-        this.from = from;
-        this.to = to;
-    }
+//    /**
+//     * Constructor of an event task
+//     *
+//     * @param description String description of the task
+//     * @param from the start time of Event
+//     * @param to  the end time of Event
+//     * @param isDone  true if task is completed. False otherwise
+//     */
+//    public EventTask(String description, boolean isDone, Time from, Time to) {
+//        super(description, isDone);
+//        this.from = from;
+//        this.to = to;
+//    }
 
     @Override
     public String toString() {
@@ -46,5 +46,27 @@ public class EventTask extends Task {
     public String toSave() {
         return "E | " + super.toSave() + " | " + from.toString()
                 + " | " + to.toString();
+    }
+
+    @Override
+    public void setStartTime(String end) {
+        super.setStartTime(end);
+        this.from = super.getStartTime();
+    }
+
+    @Override
+    public void setEndTime(String end) {
+        super.setEndTime(end);
+        this.to = super.getEndTime();
+    }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText(text);
     }
 }

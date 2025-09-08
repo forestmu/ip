@@ -109,6 +109,14 @@ public class Parser {
                      | NoTaskException | InvalidTimeInputException e) {
                 return Ui.printError(e);
             }
+        case EDIT:
+            try {
+                return taskList.updateTask(text);
+            } catch (NoTaskException | NoStartException | NoEndException
+                     | InvalidInputException | InvalidTimeInputException
+                     | EditTaskErrorException e) {
+                Ui.printError(e);
+            }
         }
         return null;
     }

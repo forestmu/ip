@@ -1,5 +1,6 @@
 package tasks;
 
+import candy.Parser;
 import exceptions.InvalidInputException;
 import exceptions.NoEndException;
 import exceptions.NoStartException;
@@ -64,9 +65,9 @@ public class TaskInformation {
     }
 
     /**
-     * Returns the start time of task in Time
+     * Returns the start time of task in String
      */
-    public Time getStart() {
+    public String getStartString() {
         //only event task have start time
         if (!text.startsWith("event")) {
             return null;
@@ -87,14 +88,25 @@ public class TaskInformation {
             throw new NoStartException();
         }
 
-        startTime = new Time(start.trim());
+        return start.trim();
+    }
+
+    /**
+     * Returns the start time of task in Time
+     */
+    public Time getStartTime() {
+        String start = getStartString();
+        if (start == null) {
+            return null;
+        }
+        startTime = new Time(start);
         return startTime;
     }
 
     /**
-     * Returns end time of task in Time
+     * Returns end time of task in String
      */
-    public Time getEnd() {
+    public String getEndString() {
         String end;
         if (text.startsWith("deadline")) {
             int index = text.indexOf("/");
@@ -120,7 +132,39 @@ public class TaskInformation {
             return null;
         }
 
-        endTime = new Time(end.trim());
+        return end.trim();
+    }
+
+    /**
+     * Returns end time of task in Time
+     */
+    public Time getEndTime() {
+        String end = getEndString();
+        if (end == null) {
+            return null;
+        }
+        endTime = new Time(end);
         return endTime;
     }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStartTime(String start) {
+        this.startTime = new Time(start);
+    }
+
+    public void setEndTime(String end) {
+        this.endTime = new Time(end);
+    }
+
+    public void setText(String text) {
+        this.text = this.type + " " + text;
+    }
+
 }

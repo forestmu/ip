@@ -14,15 +14,15 @@ public class TodoTask extends Task {
         super(information);
     }
 
-    /**
-     * Constructor of Todo task
-     *
-     * @param description String description of the task
-     * @param isDone  true if task is completed. False otherwise
-     */
-    public TodoTask(String description, boolean isDone) {
-        super(description, isDone);
-    }
+//    /**
+//     * Constructor of Todo task
+//     *
+//     * @param description String description of the task
+//     * @param isDone  true if task is completed. False otherwise
+//     */
+//    public TodoTask(String description, boolean isDone) {
+//        super(description, isDone);
+//    }
 
     @Override
     public String toString() {
@@ -32,5 +32,15 @@ public class TodoTask extends Task {
     @Override
     public String toSave() {
         return "T | " + super.toSave();
+    }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
+    public void setText(String text) {
+       super.setText(text);
     }
 }
