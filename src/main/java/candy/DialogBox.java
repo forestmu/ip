@@ -66,6 +66,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getCandyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        //as chatbot is on the left
         db.flipDialogBox();
         return db;
     }

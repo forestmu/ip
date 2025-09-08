@@ -34,6 +34,7 @@ public enum Command {
      */
     public static Command parseCommand(String input) {
         for (Command command : values()) {
+            //check if there is a valid command
             if (input.startsWith(command.keyword)) {
                 return command;
             }

@@ -11,8 +11,10 @@ import java.time.format.DateTimeParseException;
  * Provides formatting for display and storage
  */
 public class Time {
+    //format as eg: 03-12-2025 1800
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern(
             "dd-MM-yyyy HHmm");
+    //format as eg: 3 Dec 2025 18:00
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern(
             "d MMM yyyy HH:mm");
     private LocalDateTime dateTime;

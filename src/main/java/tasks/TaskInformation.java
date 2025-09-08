@@ -31,22 +31,29 @@ public class TaskInformation {
      * Returns string description of task
      */
     public String getDescription() {
-        if (text.startsWith("todo")) {
+        if (this.type.equals("todo")) {
+            //todo has 4 letters hence description
+            //starts from index 4
             description = text.substring(4);
-        } else if (text.startsWith("deadline")) {
+        } else if (this.type.equals("deadline")) {
+            //description is after 'deadline' and before end time
             int index = text.indexOf("/");
             if (index == -1) {
                 throw new InvalidInputException();
             }
+            //deadline has 8 letters
             description = text.substring(8, index - 1);
-        } else if (text.startsWith("event")) {
+        } else if (this.type.equals("event")) {
+            //description is after 'event' and before start time
             int getFrom = text.indexOf("/");
             if (getFrom == -1) {
                 throw new InvalidInputException();
             }
+            //event has 5 letters
             description = text.substring(5, getFrom - 1);
         } else {
-            description = text;
+            //should not reach here
+            description = "";
         }
 
         if (description.isBlank()) {
@@ -60,6 +67,7 @@ public class TaskInformation {
      * Returns the start time of task in Time
      */
     public Time getStart() {
+        //only event task have start time
         if (!text.startsWith("event")) {
             return null;
         }
@@ -71,6 +79,9 @@ public class TaskInformation {
             throw new InvalidInputException();
         }
 
+        //start time specified after '/from'
+        //getTo is the index of '/' hence end of start time
+        //is one index before getTo
         start = text.substring(getFrom + 5, getTo - 1);
         if (start.isBlank()) {
             throw new NoStartException();
@@ -90,6 +101,7 @@ public class TaskInformation {
             if (index == -1) {
                 throw new InvalidInputException();
             }
+            //end time specified after '/by'
             end = text.substring(index + 3);
             if (end.isBlank()) {
                 throw new NoEndException();
@@ -99,6 +111,7 @@ public class TaskInformation {
             if (index == -1) {
                 throw new InvalidInputException();
             }
+            //end time specified after '/to'
             end = text.substring(index + 3);
             if (end.isBlank()) {
                 throw new NoEndException();

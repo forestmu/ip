@@ -52,6 +52,7 @@ public class TaskList {
                 throw new EditTaskErrorException();
             }
 
+            //marks the specified task
             Task toMark = allText.get(order - 1);
             String dialog;
             if (mark) {
@@ -61,11 +62,15 @@ public class TaskList {
                 toMark.markUndone();
                 dialog = "Ok, I've marked this task as not done yet: \n    " ;
             }
+
+            //edit the task in the array
             textToSave.set(order - 1, toMark.toSave());
+            //update the string of tasks
             String newList = "";
             for (int i = 0; i < textToSave.size(); i++) {
                 newList = newList + textToSave.get(i) + System.lineSeparator();
             }
+            //save to storage
             taskStorage.write(newList, false);
             return dialog + toMark.toString();
         } catch (NumberFormatException e) {
@@ -86,14 +91,17 @@ public class TaskList {
                 throw new EditTaskErrorException();
             }
 
+            //update the array
             Task toDelete = allText.get(order - 1);
             allText.remove(order - 1);
             textToSave.remove(order - 1);
 
+            //update the string of tasks
             String newList = "";
             for (int i = 0; i < textToSave.size(); i++) {
                 newList = newList + textToSave.get(i) + System.lineSeparator();
             }
+            //save to storage
             taskStorage.write(newList, false);
 
             return "Noted. I've removed this task:\n      "
@@ -111,6 +119,7 @@ public class TaskList {
      * @param text string description of the task
      */
     public String addTask(String text, String type) {
+        //create the task
         TaskInformation information = new TaskInformation(text, type);
         Task newTask;
         if (type.equals("todo")) {
@@ -120,9 +129,12 @@ public class TaskList {
         } else {
             newTask = new EventTask(information);
         }
-        
+
+        //add to array
         allText.add(newTask);
         textToSave.add(newTask.toSave());
+
+        //save to storage
         taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
         return "Got it. I've added this task: \n      "
                 + newTask.toString() + "\n    Now you have " + allText.size()
@@ -139,12 +151,17 @@ public class TaskList {
         ArrayList<Task> foundList = new ArrayList<>();
         int max = allText.size();
 
+        //loop through all the task
         for (int i = 0; i < max; i++) {
             Task currentTask = allText.get(i);
             String description = currentTask.getDescription().toLowerCase();
+
+            //should not happen:
             if (description.isEmpty()) {
                 continue;
             }
+
+            //check if it is what user is finding for and add
             if (description.contains(keyword.toLowerCase())) {
                 foundList.add(currentTask);
             }
@@ -154,6 +171,7 @@ public class TaskList {
             return "No task exist";
         }
 
+        //convert the array of found tasks into string
         String toReturn = "Here are the matching tasks in your list: " + System.lineSeparator();
         int sized = foundList.size();
         for (int i = 0; i < sized; i++) {
