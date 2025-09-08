@@ -38,15 +38,15 @@ public class MainWindow extends AnchorPane {
     /**
      * Injects the Candy instance
      */
-    public void setCandy(Candy c) {
-        candy = c;
+    public void setCandy(Candy candy) {
+        this.candy = candy;
     }
 
     /**
      * Injects the Stage instance
      */
-    public void setStage(Stage s) {
-        stage = s;
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     /**
@@ -57,6 +57,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
         String candyText = candy.getResponse(userInput.getText());
+        //dialogContainer is where the whole conversation is
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getCandyDialog(candyText, candyImage)
@@ -66,6 +67,7 @@ public class MainWindow extends AnchorPane {
         if (Parser.getIsConversationOver()) {
             Parser.setIsConversationOver(false);
 
+            //delay for 1 second for user to see the goodbye message before closing
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(e -> stage.close()); // Close stage after delay
             delay.play();

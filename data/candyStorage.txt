@@ -1,6 +1,5 @@
-T |   | book
-T | X | task
-T |   | test
-D |   | read book | 15-08-2025 1900
+T | X | book
+D | X | read book | 15-08-2025 1900
 T |   | read  book
 E |   | camp | 15-08-2025 0600 | 18-08-2025 1200
+T |   | this
