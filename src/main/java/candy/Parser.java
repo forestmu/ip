@@ -88,6 +88,8 @@ public class Parser {
             } else {
                 return taskList.findTask(keyword);
             }
+        case EDIT:
+            number = text.substring(4);
         case TODO:
             try {
                 return taskList.addTask(text, "todo");
