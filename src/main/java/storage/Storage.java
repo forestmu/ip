@@ -1,5 +1,7 @@
 package storage;
 
+import candy.Ui;
+import exceptions.InvalidTaskReadException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.TodoTask;
@@ -7,6 +9,7 @@ import tasks.Task;
 import time.Time;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class Storage {
                 candyStorage.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.printError(e);
         }
     }
 
@@ -54,7 +57,7 @@ public class Storage {
             writer.write(string);
             writer.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.printError(e);
         }
     }
 
@@ -71,7 +74,7 @@ public class Storage {
             }
             scanner.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Ui.printError(e);
         }
         return list;
     }
@@ -99,18 +102,20 @@ public class Storage {
                     String end = parts[3].trim();
                     Time endTime = new Time(end);
                     task = new DeadlineTask(description, isDone, endTime);
-                } else {
+                } else if (type.equals("E")) {
                     String start = parts[3].trim();
                     String end = parts[4].trim();
                     Time startTime = new Time(start);
                     Time endTime = new Time(end);
                     task = new EventTask(description, isDone, startTime, endTime);
+                } else {
+                    throw new InvalidTaskReadException();
                 }
                 list.add(task);
             }
             scanner.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (FileNotFoundException | InvalidTaskReadException e) {
+            Ui.printError(e);
         }
         return list;
     }

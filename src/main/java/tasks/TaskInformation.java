@@ -28,13 +28,6 @@ public class TaskInformation {
     }
 
     /**
-     * Returns string of the type of task
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
      * Returns string description of task
      */
     public String getDescription() {

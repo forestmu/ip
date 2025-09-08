@@ -48,7 +48,7 @@ public class Parser {
     public static String parse(String text, TaskList taskList) {
         Command commandWord;
         try {
-            commandWord = Command.fromInput(text);
+            commandWord = Command.parseCommand(text);
         } catch (InvalidInputException e) {
             return Ui.printError(e);
         }

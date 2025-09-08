@@ -38,15 +38,15 @@ public class MainWindow extends AnchorPane {
     /**
      * Injects the Candy instance
      */
-    public void setCandy(Candy c) {
-        candy = c;
+    public void setCandy(Candy candy) {
+        this.candy = candy;
     }
 
     /**
      * Injects the Stage instance
      */
-    public void setStage(Stage s) {
-        stage = s;
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     /**

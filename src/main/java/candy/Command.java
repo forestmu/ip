@@ -32,7 +32,7 @@ public enum Command {
      *
      * @param input the string of text user input
      */
-    public static Command fromInput(String input) {
+    public static Command parseCommand(String input) {
         for (Command command : values()) {
             if (input.startsWith(command.keyword)) {
                 return command;

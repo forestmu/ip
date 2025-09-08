@@ -1,4 +1,4 @@
-T |   | book
+T | X | book
 T | X | task
 T |   | test
 D |   | read book | 15-08-2025 1900
