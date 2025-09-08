@@ -60,18 +60,18 @@ public class Task{
     }
 
     /**
+     * Returns the type
+     */
+    public String getType() {
+        return this.information.getType();
+    }
+
+    /**
      * Updates the description
      */
     public void setDescription(String description) {
         this.information.setDescription(description);
         this.description = description;
-    }
-
-    /**
-     * Updates the type
-     */
-    public void setType(String type) {
-        this.information.setType(type);
     }
 
     /**
@@ -82,10 +82,24 @@ public class Task{
     }
 
     /**
+     * Returns the start time
+     */
+    public Time getStartTime() {
+        return this.information.getStartTime();
+    }
+
+    /**
      * Updates the end time
      */
     public void setEndTime(String end) {
         this.information.setEndTime(end);
+    }
+
+    /**
+     * Returns the end time
+     */
+    public Time getEndTime() {
+        return this.information.getEndTime();
     }
 
     /**

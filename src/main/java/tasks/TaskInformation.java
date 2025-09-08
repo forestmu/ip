@@ -147,12 +147,12 @@ public class TaskInformation {
         return endTime;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getType() {
+        return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setStartTime(String start) {
@@ -164,7 +164,7 @@ public class TaskInformation {
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text = this.type + " " + text;
     }
 
 }

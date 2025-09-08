@@ -196,8 +196,10 @@ public class TaskList {
     public String updateTask(String text) {
         int order;
         try {
+            //String after the edit word
             String details = text.substring(4);
 
+            //get index of the task to edit
             int detailStart = details.indexOf("/");
             if (detailStart == -1) {
                 throw new InvalidInputException();
@@ -209,31 +211,28 @@ public class TaskList {
                 throw new EditTaskErrorException();
             }
 
-           Task toEdit = allText.get(order - 1);
-            //edit task:
+            Task toEdit = allText.get(order - 1);
+
+            //String after specifying which task to edit
             String taskDetails = details.substring(detailStart + 1).trim();
 
-            String type;
-            if (taskDetails.startsWith("todo")) {
-                type = "todo";
-            } else if (taskDetails.startsWith("deadline")) {
-                type = "deadline";
-            } else if (taskDetails.startsWith("event")) {
-                type = "event";
-            } else {
-                throw new InvalidInputException();
-            }
+            String type = toEdit.getType();
+            String fullText = type + " " + taskDetails;
 
-            TaskInformation temporary = new TaskInformation(taskDetails, type);
+            TaskInformation temporary = new TaskInformation(fullText, type);
             String description = temporary.getDescription();
             String start = temporary.getStartString();
             String end = temporary.getEndString();
 
             toEdit.setText(taskDetails);
-            toEdit.setType(type);
             toEdit.setDescription(description);
-            toEdit.setStartTime(start);
-            toEdit.setEndTime(end);
+            if (type.equals("deadline") || type.equals("event")) {
+                toEdit.setEndTime(end);
+            }
+
+            if (type.equals("event")) {
+                toEdit.setStartTime(start);
+            }
 
             //edit the task in the string array
             textToSave.set(order - 1, toEdit.toSave());

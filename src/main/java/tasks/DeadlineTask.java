@@ -40,4 +40,20 @@ public class DeadlineTask extends Task {
     public String toSave() {
         return "D | " + super.toSave() + " | " + by.toString();
     }
+
+    @Override
+    public void setEndTime(String end) {
+        super.setEndTime(end);
+        this.by = super.getEndTime();
+    }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+    }
 }

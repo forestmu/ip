@@ -33,4 +33,14 @@ public class TodoTask extends Task {
     public String toSave() {
         return "T | " + super.toSave();
     }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
+    public void setText(String text) {
+       super.setText(text);
+    }
 }

@@ -19,7 +19,7 @@ public class InvalidInputException extends RuntimeException {
                 + "     - 'mark <task number>' \n"
                 + "     - 'unmark <task number>'.\n"
                 + "     - 'delete <task number>' \n"
-                + "     - 'edit <task number> /(followed by same format to add task)'\n"
+                + "     - 'edit <task number> /[same as adding task but without 'todo', 'deadline' or 'event']'\n"
                 + "3. To view/find tasks:\n"
                 + "     - 'list'\n"
                 + "     - 'find <keyword>'");

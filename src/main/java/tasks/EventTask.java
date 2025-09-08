@@ -47,4 +47,26 @@ public class EventTask extends Task {
         return "E | " + super.toSave() + " | " + from.toString()
                 + " | " + to.toString();
     }
+
+    @Override
+    public void setStartTime(String end) {
+        super.setStartTime(end);
+        this.from = super.getStartTime();
+    }
+
+    @Override
+    public void setEndTime(String end) {
+        super.setEndTime(end);
+        this.to = super.getEndTime();
+    }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+    }
 }
