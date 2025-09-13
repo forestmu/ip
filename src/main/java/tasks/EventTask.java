@@ -22,20 +22,6 @@ public class EventTask extends Task {
         this.to = information.getEndTime();
     }
 
-//    /**
-//     * Constructor of an event task
-//     *
-//     * @param description String description of the task
-//     * @param from the start time of Event
-//     * @param to  the end time of Event
-//     * @param isDone  true if task is completed. False otherwise
-//     */
-//    public EventTask(String description, boolean isDone, Time from, Time to) {
-//        super(description, isDone);
-//        this.from = from;
-//        this.to = to;
-//    }
-
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from:" + from.toPrint()

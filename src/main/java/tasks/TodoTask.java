@@ -14,16 +14,6 @@ public class TodoTask extends Task {
         super(information);
     }
 
-//    /**
-//     * Constructor of Todo task
-//     *
-//     * @param description String description of the task
-//     * @param isDone  true if task is completed. False otherwise
-//     */
-//    public TodoTask(String description, boolean isDone) {
-//        super(description, isDone);
-//    }
-
     @Override
     public String toString() {
         return "[T]" + super.toString();

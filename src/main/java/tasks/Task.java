@@ -18,17 +18,6 @@ public class Task{
         this.isDone = false;
     }
 
-//    /**
-//     * Constructs a Task
-//     *
-//     * @param description String description of the task
-//     * @param isDone  true if task is completed. False otherwise
-//     */
-//    public Task(String description, boolean isDone) {
-//        this.description = description;
-//        this.isDone = isDone;
-//    }
-
     /**
      * Returns string of isDone
      * 'X' if true
