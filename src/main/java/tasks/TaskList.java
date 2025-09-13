@@ -3,6 +3,8 @@ package tasks;
 import candy.Ui;
 import exceptions.EditTaskErrorException;
 import exceptions.InvalidInputException;
+import exceptions.InvalidTimeInputException;
+import exceptions.MyNumberFormatException;
 import storage.Storage;
 import java.util.ArrayList;
 
@@ -54,6 +56,24 @@ public class TaskList {
     }
 
     /**
+     * Reads the task number that user wants to update/delete
+     *
+     * @param order String format of the "integer" user input
+     * @return      task number in Integer
+     */
+    public int getTaskNumber(String order) {
+        try {
+            int taskNumber = Integer.parseInt(order.trim());
+            if (taskNumber <= 0 || taskNumber > allText.size()) {
+                throw new EditTaskErrorException();
+            }
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            throw new MyNumberFormatException();
+        }
+    }
+
+    /**
      * Returns a string notifying that a task in the array
      * is marked or unmarked
      *
@@ -63,10 +83,7 @@ public class TaskList {
     public String doMark(String number, boolean mark) {
         int order;
         try {
-            order = Integer.parseInt(number.trim());
-            if (order <= 0 || order > allText.size()) {
-                throw new EditTaskErrorException();
-            }
+            order = getTaskNumber(number);
 
             //marks the specified task
             Task toMark = allText.get(order - 1);
@@ -87,8 +104,8 @@ public class TaskList {
             overwriteStorage();
 
             return dialog + toMark.toString();
-        } catch (NumberFormatException e) {
-            return "Please input a number after 'mark' or 'unmark'";
+        } catch (MyNumberFormatException | EditTaskErrorException e) {
+            return Ui.printError(e);
         }
     }
 
@@ -100,10 +117,7 @@ public class TaskList {
     public String delete(String number) {
         int order;
         try {
-            order = Integer.parseInt(number.trim());
-            if (order <= 0 || order > allText.size()) {
-                throw new EditTaskErrorException();
-            }
+            order = getTaskNumber(number);
 
             //update the array
             Task toDelete = allText.get(order - 1);
@@ -115,8 +129,8 @@ public class TaskList {
             return "Noted. I've removed this task:\n      "
                     + toDelete.toString() + "\n    Now you have "
                     + allText.size() + " tasks left";
-        } catch (NumberFormatException e) {
-            return "Please input a number after 'delete'";
+        } catch (MyNumberFormatException | EditTaskErrorException e) {
+            return Ui.printError(e);
         }
 
     }
@@ -191,6 +205,33 @@ public class TaskList {
     }
 
     /**
+     * Edits the information in the given task
+     *
+     * @param newInfo The String of new information users typed
+     *                in
+     * @param toEdit The Task to update
+     */
+    public void editInformation(String newInfo, Task toEdit) {
+        String type = toEdit.getType();
+        String fullText = type + " " + newInfo;
+
+        TaskInformation temporary = new TaskInformation(fullText, type);
+        String description = temporary.getDescription();
+        String start = temporary.getStartString();
+        String end = temporary.getEndString();
+
+        toEdit.setText(newInfo);
+        toEdit.setDescription(description);
+        if (type.equals("deadline") || type.equals("event")) {
+            toEdit.setEndTime(end);
+        }
+
+        if (type.equals("event")) {
+            toEdit.setStartTime(start);
+        }
+    }
+
+    /**
      * Updates the tasks in the storage
      */
     public String updateTask(String text) {
@@ -205,47 +246,23 @@ public class TaskList {
                 throw new InvalidInputException();
             }
 
+            //get task
             String number = details.substring(0, detailStart).trim();
-            order = Integer.parseInt(number.trim());
-            if (order <= 0 || order > allText.size()) {
-                throw new EditTaskErrorException();
-            }
-
+            order = getTaskNumber(number);
             Task toEdit = allText.get(order - 1);
 
             //String after specifying which task to edit
             String taskDetails = details.substring(detailStart + 1).trim();
 
-            String type = toEdit.getType();
-            String fullText = type + " " + taskDetails;
-
-            TaskInformation temporary = new TaskInformation(fullText, type);
-            String description = temporary.getDescription();
-            String start = temporary.getStartString();
-            String end = temporary.getEndString();
-
-            toEdit.setText(taskDetails);
-            toEdit.setDescription(description);
-            if (type.equals("deadline") || type.equals("event")) {
-                toEdit.setEndTime(end);
-            }
-
-            if (type.equals("event")) {
-                toEdit.setStartTime(start);
-            }
-
-            //edit the task in the string array
+            //edit the task
+            editInformation(taskDetails, toEdit);
             textToSave.set(order - 1, toEdit.toSave());
-
             overwriteStorage();
 
             return "I have updated the following task to: \n"
                     + toEdit.toString();
-        } catch (NumberFormatException e) {
-            return "Please input a number after 'edit' to indicate which task to update";
-        } catch (Exception e) {
+        } catch (MyNumberFormatException | InvalidInputException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
     }
-
 }
