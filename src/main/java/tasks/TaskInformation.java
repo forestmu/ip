@@ -1,6 +1,7 @@
 package tasks;
 
 import candy.Parser;
+import candy.Ui;
 import exceptions.InvalidInputException;
 import exceptions.NoEndException;
 import exceptions.NoStartException;
@@ -29,6 +30,17 @@ public class TaskInformation {
     }
 
     /**
+     * Checks if the index if valid (existing)
+     *
+     * @param index the index to check
+     */
+    public void checkIndex(int index) {
+        if (index == -1) {
+            throw new InvalidInputException();
+        }
+    }
+
+    /**
      * Returns string description of task
      */
     public String getDescription() {
@@ -39,17 +51,13 @@ public class TaskInformation {
         } else if (this.type.equals("deadline")) {
             //description is after 'deadline' and before end time
             int index = text.indexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
+            checkIndex(index);
             //deadline has 8 letters
             description = text.substring(8, index - 1);
         } else if (this.type.equals("event")) {
             //description is after 'event' and before start time
             int getFrom = text.indexOf("/");
-            if (getFrom == -1) {
-                throw new InvalidInputException();
-            }
+            checkIndex(getFrom);
             //event has 5 letters
             description = text.substring(5, getFrom - 1);
         } else {
@@ -59,9 +67,8 @@ public class TaskInformation {
 
         if (description.isBlank()) {
             throw new NoTaskException();
-        } else {
-            return description.trim();
         }
+        return description.trim();
     }
 
     /**
@@ -72,14 +79,12 @@ public class TaskInformation {
         if (!text.startsWith("event")) {
             return null;
         }
-
         String start;
         int getFrom = text.indexOf("/");
         int getTo = text.lastIndexOf("/");
         if (getFrom == getTo || getFrom == -1 || getTo == -1) {
             throw new InvalidInputException();
         }
-
         //start time specified after '/from'
         //getTo is the index of '/' hence end of start time
         //is one index before getTo
@@ -87,7 +92,6 @@ public class TaskInformation {
         if (start.isBlank()) {
             throw new NoStartException();
         }
-
         return start.trim();
     }
 
@@ -110,9 +114,7 @@ public class TaskInformation {
         String end;
         if (text.startsWith("deadline")) {
             int index = text.indexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
+            checkIndex(index);
             //end time specified after '/by'
             end = text.substring(index + 3);
             if (end.isBlank()) {
@@ -120,9 +122,7 @@ public class TaskInformation {
             }
         } else if (text.startsWith("event")) {
             int index = text.lastIndexOf("/");
-            if (index == -1) {
-                throw new InvalidInputException();
-            }
+            checkIndex(index);
             //end time specified after '/to'
             end = text.substring(index + 3);
             if (end.isBlank()) {
@@ -131,7 +131,6 @@ public class TaskInformation {
         } else {
             return null;
         }
-
         return end.trim();
     }
 

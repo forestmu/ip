@@ -1,10 +1,7 @@
 package tasks;
 
 import candy.Ui;
-import exceptions.EditTaskErrorException;
-import exceptions.InvalidInputException;
-import exceptions.InvalidTimeInputException;
-import exceptions.MyNumberFormatException;
+import exceptions.*;
 import storage.Storage;
 import java.util.ArrayList;
 
@@ -77,13 +74,18 @@ public class TaskList {
      * Returns a string notifying that a task in the array
      * is marked or unmarked
      *
-     * @param number the index of where task is stored
+     * @param text the index of where task is stored
      * @param mark to mark task as done/undone
      */
-    public String doMark(String number, boolean mark) {
-        int order;
+    public String doMark(String text, boolean mark) {
         try {
-            order = getTaskNumber(number);
+            String number;
+            if (mark) {
+                number = text.substring(4);
+            } else {
+                number = text.substring(6);
+            }
+            int order = getTaskNumber(number);
 
             //marks the specified task
             Task toMark = allText.get(order - 1);
@@ -100,9 +102,7 @@ public class TaskList {
 
             //edit the task in the array
             textToSave.set(order - 1, toMark.toSave());
-
             overwriteStorage();
-
             return dialog + toMark.toString();
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
@@ -112,11 +112,12 @@ public class TaskList {
     /**
      * Returns string notifying a task is deleted from array
      *
-     * @param number index of where task to delete is stored
+     * @param text Users input
      */
-    public String delete(String number) {
-        int order;
+    public String delete(String text) {
         try {
+            String number = text.substring(6);
+            int order;
             order = getTaskNumber(number);
 
             //update the array
@@ -132,7 +133,6 @@ public class TaskList {
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
-
     }
 
     /**
@@ -141,35 +141,45 @@ public class TaskList {
      * @param text string description of the task
      */
     public String addTask(String text, String type) {
-        //create the task
-        TaskInformation information = new TaskInformation(text, type);
-        Task newTask;
-        if (type.equals("todo")) {
-            newTask = new TodoTask(information);
-        } else if (type.equals("deadline")) {
-            newTask = new DeadlineTask(information);
-        } else {
-            newTask = new EventTask(information);
+        try {
+            //create the task
+            TaskInformation information = new TaskInformation(text, type);
+            Task newTask;
+            if (type.equals("todo")) {
+                newTask = new TodoTask(information);
+            } else if (type.equals("deadline")) {
+                newTask = new DeadlineTask(information);
+            } else {
+                newTask = new EventTask(information);
+            }
+
+            //add to array
+            allText.add(newTask);
+            textToSave.add(newTask.toSave());
+
+            //save to storage
+            taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
+            return "Got it. I've added this task: \n      "
+                    + newTask.toString() + "\n    Now you have " + allText.size()
+                    + " tasks in your list.";
+        } catch (NoEndException | NoStartException
+                 | NoTaskException | InvalidTimeInputException e) {
+            return Ui.printError(e);
         }
-
-        //add to array
-        allText.add(newTask);
-        textToSave.add(newTask.toSave());
-
-        //save to storage
-        taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-        return "Got it. I've added this task: \n      "
-                + newTask.toString() + "\n    Now you have " + allText.size()
-                + " tasks in your list.";
     }
 
 
     /**
      * Returns string of all tasks found with keyword
      *
-     * @param keyword string description of what task to find
+     * @param text string description of the command
      */
-    public String findTask(String keyword) {
+    public String findTask(String text) {
+        String keyword = text.substring(4).trim();
+        if (keyword.isEmpty()) {
+            return "Please provide a keyword to search for.";
+        }
+
         ArrayList<Task> foundList = new ArrayList<>();
         int max = allText.size();
 
@@ -261,7 +271,9 @@ public class TaskList {
 
             return "I have updated the following task to: \n"
                     + toEdit.toString();
-        } catch (MyNumberFormatException | InvalidInputException | EditTaskErrorException e) {
+        } catch (MyNumberFormatException | NoTaskException | NoStartException
+                 | NoEndException | InvalidInputException
+                 | InvalidTimeInputException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
     }

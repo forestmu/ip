@@ -53,7 +53,6 @@ public class Parser {
             return Ui.printError(e);
         }
 
-        String number;
         switch (commandWord) {
         case BYE:
             isConversationOver = true;
@@ -61,62 +60,21 @@ public class Parser {
         case LIST:
             return taskList.printList();
         case MARK:
-            number = text.substring(4);
-            try {
-                return taskList.doMark(number, true);
-            } catch (EditTaskErrorException e) {
-                return Ui.printError(e);
-            }
+            return taskList.doMark(text, true);
         case UNMARK:
-            number = text.substring(6);
-            try {
-                return taskList.doMark(number, false);
-            } catch (EditTaskErrorException e) {
-                return Ui.printError(e);
-            }
+            return taskList.doMark(text, false);
         case DELETE:
-            number = text.substring(6);
-            try {
-                return taskList.delete(number);
-            } catch (EditTaskErrorException e) {
-                return Ui.printError(e);
-            }
+            return taskList.delete(text);
         case FIND:
-            String keyword = text.substring(4).trim();
-            if (keyword.isEmpty()) {
-                return "Please provide a keyword to search for.";
-            } else {
-                return taskList.findTask(keyword);
-            }
+                return taskList.findTask(text);
         case TODO:
-            try {
                 return taskList.addTask(text, "todo");
-            } catch (NoEndException | NoStartException
-                     | NoTaskException | InvalidTimeInputException e) {
-                return Ui.printError(e);
-            }
         case DEADLINE:
-            try {
                 return taskList.addTask(text, "deadline");
-            } catch (NoEndException | NoStartException
-                     | NoTaskException | InvalidTimeInputException e) {
-                return Ui.printError(e);
-            }
         case EVENT:
-            try {
                 return taskList.addTask(text, "event");
-            } catch (NoEndException | NoStartException
-                     | NoTaskException | InvalidTimeInputException e) {
-                return Ui.printError(e);
-            }
         case EDIT:
-            try {
-                return taskList.updateTask(text);
-            } catch (NoTaskException | NoStartException | NoEndException
-                     | InvalidInputException | InvalidTimeInputException
-                     | EditTaskErrorException e) {
-                Ui.printError(e);
-            }
+            return taskList.updateTask(text);
         }
         return null;
     }
