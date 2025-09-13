@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidTaskReadException extends Exception{
+public class InvalidTaskReadException extends RuntimeException {
     /**
      * Constructs an error
      * Prints specific message
