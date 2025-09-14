@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 /**
  * Represents a dialog box consisting of an ImageView for speaker's icon
  * and a label containing text from the speaker.
+ * Class inspired from GUI tutorial
  */
 public class DialogBox extends HBox {
     @FXML
@@ -52,6 +53,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     /**

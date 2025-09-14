@@ -12,6 +12,7 @@ import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
+ * Class inspired from GUI tutorial
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -24,6 +25,7 @@ public class MainWindow extends AnchorPane {
     private Candy candy;
     private Stage stage;
 
+    //Image from freepik
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image candyImage = new Image(this.getClass().getResourceAsStream("/images/Candy.png"));
 
