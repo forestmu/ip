@@ -178,7 +178,7 @@ public class TaskList {
             return "Candy successfully made this sweet: \n      "
                     + newTask.toString() + "\n    Now you have " + allText.size()
                     + " sweets in your list.";
-        } catch (NoEndException | NoStartException
+        } catch (InvalidInputException | NoEndException | NoStartException
                  | NoTaskException | InvalidTimeInputException e) {
             return Ui.printError(e);
         }

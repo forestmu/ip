@@ -2,10 +2,7 @@ package tasks;
 
 import candy.Parser;
 import candy.Ui;
-import exceptions.InvalidInputException;
-import exceptions.NoEndException;
-import exceptions.NoStartException;
-import exceptions.NoTaskException;
+import exceptions.*;
 import time.Time;
 
 /**
@@ -13,7 +10,11 @@ import time.Time;
  */
 public class TaskInformation {
     private String text;
+    private String[] parts;
+    private int partsLength;
     private String description;
+    private String startString;
+    private String endString;
     private Time startTime;
     private Time endTime;
     private String type;
@@ -27,124 +28,130 @@ public class TaskInformation {
     public TaskInformation(String text, String type) {
         this.text = text;
         this.type = type;
-    }
 
-    /**
-     * Checks if the index if valid (existing)
-     *
-     * @param index the index to check
-     */
-    public void checkIndex(int index) {
-        if (index == -1) {
+        //split text to:
+        //[0]: command + description
+        //[1]: start time if any
+        //[2]: end time if any
+        this.parts = text.split("/");
+        this.partsLength = this.parts.length;
+
+        //deadline: should be 2: command & description + end time
+        //event: should be 3: command & description + start time + end time
+        if ((type.equals("deadline") && partsLength != 2) ||
+                (type.equals("event") && partsLength != 3)) {
             throw new InvalidInputException();
         }
+
+        //initialise
+        this.description = readDescription();
+        this.startString = readStartString();
+        this.endString = readEndString();
+        this.endTime = readEndTime();
+        this.startTime = readStartTime();
     }
 
     /**
-     * Returns string description of task
+     * Returns the description from task
      */
-    public String getDescription() {
+    public String readDescription() {
+        String toRead = this.parts[0];
+        String toReturn;
         //Used chatGPT to search and understand the indexOf function
         if (this.type.equals("todo")) {
             //todo has 4 letters hence description
             //starts from index 4
-            description = text.substring(4);
+            toReturn = toRead.substring(4);
         } else if (this.type.equals("deadline")) {
-            //description is after 'deadline' and before end time
-            int index = text.indexOf("/");
-            checkIndex(index);
             //deadline has 8 letters
-            description = text.substring(8, index - 1);
+            toReturn = toRead.substring(8);
         } else if (this.type.equals("event")) {
-            //description is after 'event' and before start time
-            int getFrom = text.indexOf("/");
-            checkIndex(getFrom);
             //event has 5 letters
-            description = text.substring(5, getFrom - 1);
+            toReturn = toRead.substring(5);
         } else {
             //should not reach here
-            description = "";
+            toReturn = "";
         }
 
-        if (description.isBlank()) {
+        if (toReturn.isBlank()) {
             throw new NoTaskException();
         }
-        return description.trim();
+        return toReturn.trim();
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     /**
      * Returns the start time of task in String
      */
-    public String getStartString() {
-        //only event task have start time
-        if (!text.startsWith("event")) {
+    public String readStartString() {
+        if (type.equals("event")) {
+            String start = this.parts[1];
+            if (start.isBlank()) {
+                throw new NoStartException();
+            }
+            return start.replaceAll("[a-zA-Z]", "").trim();
+        } else {
             return null;
         }
-        String start;
-        int getFrom = text.indexOf("/from");
-        int getTo = text.indexOf("/to");
-        if (getFrom == getTo || getFrom == -1 || getTo == -1) {
-            throw new InvalidInputException();
-        }
-        //start time specified after '/from'
-        //getTo is the index of '/' hence end of start time
-        //is one index before getTo
-        start = text.substring(getFrom + 5, getTo - 1);
-        if (start.isBlank()) {
-            throw new NoStartException();
-        }
-        return start.trim();
+    }
+
+    public String getStartString() {
+        return this.startString;
     }
 
     /**
      * Returns the start time of task in Time
      */
-    public Time getStartTime() {
-        String start = getStartString();
-        if (start == null) {
+    public Time readStartTime() {
+        if (this.startString == null) {
             return null;
         }
-        startTime = new Time(start);
-        return startTime;
+        return new Time(this.startString);
+
+    }
+
+    public Time getStartTime() {
+        return this.startTime;
     }
 
     /**
-     * Returns end time of task in String
+     * Return end time of task in String
      */
-    public String getEndString() {
+    public String readEndString() {
         String end;
-        if (text.startsWith("deadline")) {
-            int index = text.indexOf("/by");
-            checkIndex(index);
-            //end time specified after '/by'
-            end = text.substring(index + 3);
-            if (end.isBlank()) {
-                throw new NoEndException();
-            }
-        } else if (text.startsWith("event")) {
-            int index = text.lastIndexOf("/to");
-            checkIndex(index);
-            //end time specified after '/to'
-            end = text.substring(index + 3);
-            if (end.isBlank()) {
-                throw new NoEndException();
-            }
+        if (type.equals("deadline")) {
+            end = this.parts[1];
+        } else if (type.equals("event")) {
+            end = this.parts[2];
         } else {
             return null;
         }
-        return end.trim();
+
+        if (end.isBlank()) {
+            throw new NoEndException();
+        }
+        return end.replaceAll("[a-zA-Z]", "").trim();
     }
 
+    public String getEndString() {
+        return this.endString;
+    }
     /**
      * Returns end time of task in Time
      */
-    public Time getEndTime() {
-        String end = getEndString();
-        if (end == null) {
+    public Time readEndTime() {
+        if (this.endString == null) {
             return null;
+        } else {
+            return new Time(this.endString);
         }
-        endTime = new Time(end);
-        return endTime;
+    }
+
+    public Time getEndTime() {
+        return this.endTime;
     }
 
     public String getType() {
