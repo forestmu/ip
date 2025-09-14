@@ -6,6 +6,6 @@ public class InvalidTaskReadException extends RuntimeException {
      * Prints specific message
      */
     public InvalidTaskReadException() {
-        super("OOPS! Unable to read tasks from storage");
+        super("Oh no! Your stored candy has melted. I can't distinguish them!");
     }
 }

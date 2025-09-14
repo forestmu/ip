@@ -9,6 +9,7 @@ public class MyNumberFormatException extends RuntimeException {
      * Prints specific message
      */
     public MyNumberFormatException() {
-        super("Please input a number after the command to indicate which task to update/delete");
+        super("Candy can't tell which task. \n"
+                + "Give candy a number after your command");
     }
 }

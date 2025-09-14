@@ -44,6 +44,7 @@ public class TaskInformation {
      * Returns string description of task
      */
     public String getDescription() {
+        //Used chatGPT to search and understand the indexOf function
         if (this.type.equals("todo")) {
             //todo has 4 letters hence description
             //starts from index 4

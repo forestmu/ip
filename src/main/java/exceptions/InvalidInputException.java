@@ -10,7 +10,8 @@ public class InvalidInputException extends RuntimeException {
      * Prints specific message
      */
     public InvalidInputException() {
-        super("OOPS! Follow the following format: \n"
+        super("Aiyo! Wrong recipe! No candy is made \n"
+                + "Follow the following recipes: \n"
                 + "1. To add Tasks: \n"
                 + "     - 'todo <task>'\n"
                 + "     - 'deadline <task> /by <dd-mm-yyyy HHmm>'\n"

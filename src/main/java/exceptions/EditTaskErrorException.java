@@ -10,6 +10,6 @@ public class EditTaskErrorException extends RuntimeException {
      * Prints specific message
      */
     public EditTaskErrorException() {
-        super("OOPS! Task does not exist");
+        super("Oh no! Task does not exist \uD83D\uDE22");
     }
 }

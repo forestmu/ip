@@ -10,6 +10,7 @@ public class InvalidTimeInputException extends RuntimeException {
      * Prints specific message
      */
     public InvalidTimeInputException() {
-        super("OOPS! Please input a proper time in the format: 'dd-mm-yyyy HHmm' ");
+        super("Candy needs the numbers right!\n"
+                + "Please input in the format: 'dd-mm-yyyy HHmm' ");
     }
 }

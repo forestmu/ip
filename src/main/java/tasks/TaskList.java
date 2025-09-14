@@ -13,6 +13,11 @@ public class TaskList {
     private ArrayList<String> textToSave;
     private Storage taskStorage;
 
+    // Emoji constants by ChatGPT to personalise Candy
+    private static final String DONE_EMOJI = "✅";
+    private static final String UNDONE_EMOJI = "❌";
+    private static final String NEW_TASK_EMOJI = "🍬";
+
     /**
      * Constructor to initialise array and storage
      *
@@ -30,12 +35,12 @@ public class TaskList {
      */
     public void overwriteStorage() {
         //update the string of tasks
-        String newList = "";
-        for (int i = 0; i < textToSave.size(); i++) {
-            newList = newList + textToSave.get(i) + System.lineSeparator();
+        StringBuilder newList = new StringBuilder();
+        for (String text : textToSave) {
+            newList.append(text).append(System.lineSeparator());
         }
         //save to storage
-        taskStorage.write(newList, false);
+        taskStorage.write(newList.toString(), false);
     }
 
     /**
