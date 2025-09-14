@@ -16,7 +16,8 @@ public class TaskList {
     // Emoji constants by ChatGPT to personalise Candy
     private static final String DONE_EMOJI = "✅";
     private static final String UNDONE_EMOJI = "❌";
-    private static final String NEW_TASK_EMOJI = "🍬";
+    private static final String CANDY_EMOJI = "🍬";
+    private static final String SAD_FACE_EMOJI = "😢";
 
     /**
      * Constructor to initialise array and storage
@@ -34,6 +35,7 @@ public class TaskList {
      * to the updated version
      */
     public void overwriteStorage() {
+        //ChatGPT suggested to use StringBuilder instead of String
         //update the string of tasks
         StringBuilder newList = new StringBuilder();
         for (String text : textToSave) {
@@ -44,17 +46,28 @@ public class TaskList {
     }
 
     /**
+     * Converts list of tasks to String
+     *
+     * @param tasks     the list of task to convert
+     * @param startLine the comment candy would give before saying the
+     *                  tasks
+     * Note: Method suggested by chatGPT for printList and findTask
+     */
+    private String taskListToString(ArrayList<Task> tasks, String startLine) {
+        //startLine is the first line of text eg: Here are your task
+        StringBuilder sb = new StringBuilder(startLine).append(System.lineSeparator());
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ")
+                    .append(tasks.get(i)).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
+    /**
      * Returns string of all tasks in allText
      */
     public String printList() {
-        int max = allText.size();
-        String toReturn = "Here are the tasks in your list: " + System.lineSeparator();
-        for (int i = 0; i < max; i++) {
-            int order = i + 1;
-            Task theTask = allText.get(i);
-            toReturn = toReturn + order + ". " + theTask.toString() + System.lineSeparator();
-        }
-        return toReturn;
+        return taskListToString(allText, "All your sweets " + CANDY_EMOJI + " are here:");
     }
 
     /**
@@ -182,7 +195,7 @@ public class TaskList {
     public String findTask(String text) {
         String keyword = text.substring(4).trim();
         if (keyword.isEmpty()) {
-            return "Please provide a keyword to search for.";
+            return "Candy is lost. What sweet " + CANDY_EMOJI+ " are you searching for?";
         }
 
         ArrayList<Task> foundList = new ArrayList<>();
@@ -205,18 +218,11 @@ public class TaskList {
         }
 
         if (foundList.isEmpty()) {
-            return "No task exist";
+            return "Candy didn't find matching sweets" + SAD_FACE_EMOJI;
         }
 
         //convert the array of found tasks into string
-        String toReturn = "Here are the matching tasks in your list: " + System.lineSeparator();
-        int sized = foundList.size();
-        for (int i = 0; i < sized; i++) {
-            int order = i + 1;
-            Task theTask = foundList.get(i);
-            toReturn = toReturn + order + ". " + theTask.toString() + System.lineSeparator();
-        }
-        return toReturn;
+        return taskListToString(foundList, "Candy found these sweets" + CANDY_EMOJI + "!");
     }
 
     /**
