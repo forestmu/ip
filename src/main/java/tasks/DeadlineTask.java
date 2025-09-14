@@ -1,14 +1,10 @@
 package tasks;
 
-import time.Time;
-
 /**
  * Represents a task with a deadline.
  * Extends Task with a deadline
  */
 public class DeadlineTask extends Task {
-    protected Time by;
-
     /**
      * Constructor of a Deadline task
      *
@@ -16,32 +12,24 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(TaskInformation information) {
         super(information);
-        this.by = information.getEndTime();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + by.toPrint() + ")";
+        return "[D]" + super.toString() + " (by:"
+                + super.getEndTime().toPrint() + ")";
     }
 
     @Override
     public String toSave() {
-        return "D | " + super.toSave() + " | " + by.toString();
+        return "D | " + super.toSave() + " | "
+                + super.getEndTime().toString();
     }
 
-    @Override
-    public void setEndTime(String end) {
-        super.setEndTime(end);
-        this.by = super.getEndTime();
-    }
+
 
     @Override
-    public void setDescription(String description) {
-        super.setDescription(description);
-    }
-
-    @Override
-    public void setText(String text) {
-        super.setText(text);
+    public void setInformation(TaskInformation info) {
+        super.setInformation(info);
     }
 }

@@ -1,7 +1,5 @@
 package tasks;
 
-import candy.Parser;
-import candy.Ui;
 import exceptions.*;
 import time.Time;
 
@@ -9,7 +7,6 @@ import time.Time;
  * Represents a set of information for a task
  */
 public class TaskInformation {
-    private String text;
     private String[] parts;
     private int partsLength;
     private String description;
@@ -26,7 +23,6 @@ public class TaskInformation {
      * @param type Type of the
      */
     public TaskInformation(String text, String type) {
-        this.text = text;
         this.type = type;
 
         //split text to:
@@ -92,14 +88,12 @@ public class TaskInformation {
             if (start.isBlank()) {
                 throw new NoStartException();
             }
+            //since date is only in numbers and '-', remove the alphabets
+            //chatGPT to help with regex
             return start.replaceAll("[a-zA-Z]", "").trim();
         } else {
             return null;
         }
-    }
-
-    public String getStartString() {
-        return this.startString;
     }
 
     /**
@@ -133,12 +127,11 @@ public class TaskInformation {
         if (end.isBlank()) {
             throw new NoEndException();
         }
+        //since date is only in numbers and '-', remove the alphabets
+        //chatGPT to help with the regex
         return end.replaceAll("[a-zA-Z]", "").trim();
     }
 
-    public String getEndString() {
-        return this.endString;
-    }
     /**
      * Returns end time of task in Time
      */
@@ -157,21 +150,4 @@ public class TaskInformation {
     public String getType() {
         return this.type;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setStartTime(String start) {
-        this.startTime = new Time(start);
-    }
-
-    public void setEndTime(String end) {
-        this.endTime = new Time(end);
-    }
-
-    public void setText(String text) {
-        this.text = this.type + " " + text;
-    }
-
 }

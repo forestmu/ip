@@ -1,7 +1,15 @@
 package tasks;
 
 import candy.Ui;
-import exceptions.*;
+
+import exceptions.EditTaskErrorException;
+import exceptions.InvalidInputException;
+import exceptions.InvalidTimeInputException;
+import exceptions.NoEndException;
+import exceptions.NoStartException;
+import exceptions.NoTaskException;
+import exceptions.MyNumberFormatException;
+
 import storage.Storage;
 import java.util.ArrayList;
 
@@ -233,41 +241,38 @@ public class TaskList {
     public void editInformation(String newInfo, Task toEdit) {
         String type = toEdit.getType();
         String fullText = type + " " + newInfo;
+        TaskInformation updateInfo = new TaskInformation(fullText, type);
+        toEdit.setInformation(updateInfo);
+    }
 
-        TaskInformation temporary = new TaskInformation(fullText, type);
-        String description = temporary.getDescription();
-        String start = temporary.getStartString();
-        String end = temporary.getEndString();
-
-        toEdit.setText(newInfo);
-        toEdit.setDescription(description);
-        if (type.equals("deadline") || type.equals("event")) {
-            toEdit.setEndTime(end);
+    /**
+     * Checks if input is of correct format with the '/'
+     *
+     * @param details The string of user's input after command word
+     * @return        The index of '/'
+     */
+    public int checkIndex(String details) {
+        int detailStart = details.indexOf("/");
+        if (detailStart == -1) {
+            throw new InvalidInputException();
         }
-
-        if (type.equals("event")) {
-            toEdit.setStartTime(start);
-        }
+        return detailStart;
     }
 
     /**
      * Updates the tasks in the storage
      */
     public String updateTask(String text) {
-        int order;
         try {
             //String after the edit word
             String details = text.substring(4);
 
             //get index of the task to edit
-            int detailStart = details.indexOf("/");
-            if (detailStart == -1) {
-                throw new InvalidInputException();
-            }
+            int detailStart = checkIndex(details);
 
             //get task
             String number = details.substring(0, detailStart).trim();
-            order = getTaskNumber(number);
+            int order = getTaskNumber(number);
             Task toEdit = allText.get(order - 1);
 
             //String after specifying which task to edit

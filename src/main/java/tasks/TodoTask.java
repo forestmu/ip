@@ -25,12 +25,7 @@ public class TodoTask extends Task {
     }
 
     @Override
-    public void setDescription(String description) {
-        super.setDescription(description);
-    }
-
-    @Override
-    public void setText(String text) {
-       super.setText(text);
+    public void setInformation(TaskInformation info) {
+        super.setInformation(info);
     }
 }

@@ -3,7 +3,6 @@ package tasks;
 import time.Time;
 
 public class Task{
-    protected String description;
     protected boolean isDone;
     private TaskInformation information;
 
@@ -14,7 +13,6 @@ public class Task{
      */
     public Task(TaskInformation information) {
         this.information = information;
-        this.description = information.getDescription();
         this.isDone = false;
     }
 
@@ -24,7 +22,7 @@ public class Task{
      * empty space if false
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -45,7 +43,7 @@ public class Task{
      * Returns the description
      */
     public String getDescription() {
-        return this.description;
+        return this.information.getDescription();
     }
 
     /**
@@ -56,32 +54,10 @@ public class Task{
     }
 
     /**
-     * Updates the description
-     */
-    public void setDescription(String description) {
-        this.information.setDescription(description);
-        this.description = description;
-    }
-
-    /**
-     * Updates the start time
-     */
-    public void setStartTime(String start) {
-        this.information.setStartTime(start);
-    }
-
-    /**
      * Returns the start time
      */
     public Time getStartTime() {
         return this.information.getStartTime();
-    }
-
-    /**
-     * Updates the end time
-     */
-    public void setEndTime(String end) {
-        this.information.setEndTime(end);
     }
 
     /**
@@ -92,10 +68,10 @@ public class Task{
     }
 
     /**
-     * Updates the text
+     * Updates the Information
      */
-    public void setText(String text) {
-        this.information.setText(text);
+    public void setInformation(TaskInformation info) {
+        this.information = info;
     }
 
     /**
@@ -103,7 +79,7 @@ public class Task{
      * Used for printing task in storage
      */
     public String toSave() {
-        return getStatusIcon() + " | " + this.description;
+        return getStatusIcon() + " | " + getDescription();
     }
 
     /**
@@ -112,6 +88,6 @@ public class Task{
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 }
