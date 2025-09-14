@@ -13,9 +13,10 @@ public class TaskList {
     private ArrayList<String> textToSave;
     private Storage taskStorage;
 
-    // Emoji constants by ChatGPT to personalise Candy
-    private static final String DONE_EMOJI = "✅";
-    private static final String UNDONE_EMOJI = "❌";
+    //ChatGPT suggested to put to personalise Candy
+    //Edited chatGPT's choice to mine
+    private static final String DONE_EMOJI = "😋";
+    private static final String UNDONE_EMOJI = "😝";
     private static final String CANDY_EMOJI = "🍬";
     private static final String SAD_FACE_EMOJI = "😢";
 
@@ -97,12 +98,9 @@ public class TaskList {
      */
     public String doMark(String text, boolean mark) {
         try {
-            String number;
-            if (mark) {
-                number = text.substring(4);
-            } else {
-                number = text.substring(6);
-            }
+            //with the help of chatGPT, I found the replaceAll function
+            //and with its help im able to get the string without hardcoding
+            String number = text.replaceAll("[^0-9-]", "");;
             int order = getTaskNumber(number);
 
             //marks the specified task
@@ -111,11 +109,11 @@ public class TaskList {
             if (mark) {
                 toMark.markDone();
                 assert toMark.getStatusIcon().equals("X") : "task should be marked done";
-                dialog = "Nice! I've marked this task as done: \n    ";
+                dialog = "Candy has ate this sweet ^-^ " + DONE_EMOJI + "\n    ";
             } else {
                 toMark.markUndone();
                 assert toMark.getStatusIcon().equals(" ") : "task should be marked undone";
-                dialog = "Ok, I've marked this task as not done yet: \n    " ;
+                dialog = "Candy has spat out this sweet ^-^ " + UNDONE_EMOJI + "\n    ";
             }
 
             //edit the task in the array
@@ -134,9 +132,9 @@ public class TaskList {
      */
     public String delete(String text) {
         try {
-            String number = text.substring(6);
-            int order;
-            order = getTaskNumber(number);
+            //did the same as doMark
+            String number = text.replaceAll("[^0-9-]", "");;
+            int order = getTaskNumber(number);
 
             //update the array
             Task toDelete = allText.get(order - 1);
@@ -145,9 +143,9 @@ public class TaskList {
 
             overwriteStorage();
 
-            return "Noted. I've removed this task:\n      "
+            return "Candy threw away this sweet " + DONE_EMOJI + "\n      "
                     + toDelete.toString() + "\n    Now you have "
-                    + allText.size() + " tasks left";
+                    + allText.size() + " sweets left";
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
@@ -177,9 +175,9 @@ public class TaskList {
 
             //save to storage
             taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-            return "Got it. I've added this task: \n      "
+            return "Candy successfully made this sweet: \n      "
                     + newTask.toString() + "\n    Now you have " + allText.size()
-                    + " tasks in your list.";
+                    + " sweets in your list.";
         } catch (NoEndException | NoStartException
                  | NoTaskException | InvalidTimeInputException e) {
             return Ui.printError(e);
@@ -218,11 +216,11 @@ public class TaskList {
         }
 
         if (foundList.isEmpty()) {
-            return "Candy didn't find matching sweets" + SAD_FACE_EMOJI;
+            return "Candy didn't find matching sweets " + SAD_FACE_EMOJI;
         }
 
         //convert the array of found tasks into string
-        return taskListToString(foundList, "Candy found these sweets" + CANDY_EMOJI + "!");
+        return taskListToString(foundList, "Candy found these sweets " + CANDY_EMOJI + " !");
     }
 
     /**
@@ -280,7 +278,7 @@ public class TaskList {
             textToSave.set(order - 1, toEdit.toSave());
             overwriteStorage();
 
-            return "I have updated the following task to: \n"
+            return "Candy has remade this sweet: \n"
                     + toEdit.toString();
         } catch (MyNumberFormatException | NoTaskException | NoStartException
                  | NoEndException | InvalidInputException

@@ -81,8 +81,8 @@ public class TaskInformation {
             return null;
         }
         String start;
-        int getFrom = text.indexOf("/");
-        int getTo = text.lastIndexOf("/");
+        int getFrom = text.indexOf("/from");
+        int getTo = text.indexOf("/to");
         if (getFrom == getTo || getFrom == -1 || getTo == -1) {
             throw new InvalidInputException();
         }
@@ -114,7 +114,7 @@ public class TaskInformation {
     public String getEndString() {
         String end;
         if (text.startsWith("deadline")) {
-            int index = text.indexOf("/");
+            int index = text.indexOf("/by");
             checkIndex(index);
             //end time specified after '/by'
             end = text.substring(index + 3);
@@ -122,7 +122,7 @@ public class TaskInformation {
                 throw new NoEndException();
             }
         } else if (text.startsWith("event")) {
-            int index = text.lastIndexOf("/");
+            int index = text.lastIndexOf("/to");
             checkIndex(index);
             //end time specified after '/to'
             end = text.substring(index + 3);
