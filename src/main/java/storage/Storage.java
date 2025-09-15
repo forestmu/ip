@@ -32,11 +32,11 @@ public class Storage {
             //makes folder and file if doesn't exist
             if (dataFolder != null && !dataFolder.exists()) {
                 boolean isFolderCreated = dataFolder.mkdir();
-                assert isFolderCreated == true : "Error: Folder does not exist";
+                assert isFolderCreated : "Error: Folder does not exist";
             }
             if (!candyStorage.exists()) {
                 boolean isFileCreated = candyStorage.createNewFile();
-                assert isFileCreated == true : "Error: FIle does not exist";
+                assert isFileCreated : "Error: FIle does not exist";
             }
         } catch (IOException e) {
             Ui.printError(e);
