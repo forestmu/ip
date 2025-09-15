@@ -7,15 +7,15 @@
 }
 
 @font-face {
-    font-family: "Pixelify Sans";
+    font-family: "Pixelify Sans Medium";
     /* font from google font */
-    src: url("/fonts/PixelifySans-VariableFont_wght.ttf");
+    src: url("/fonts/PixelifySans-Medium.ttf");
 }
 
 .text-field {
     -fx-background-color: #E6E6FA;
     -fx-font-size: 17px;
-    -fx-font-family: "Pixelify Sans";
+    -fx-font-family: "Pixelify Sans Medium";
 }
 
 .button {
@@ -23,7 +23,7 @@
     -fx-font-style: italic;
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-family: "Pixelify Sans";
+    -fx-font-family: "Pixelify Sans Medium";
 }
 
 .button:hover {
