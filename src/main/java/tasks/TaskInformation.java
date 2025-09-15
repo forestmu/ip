@@ -88,12 +88,13 @@ public class TaskInformation {
     public String readStartString() {
         if (type.equals("event")) {
             String start = this.parts[1];
-            if (start.isBlank()) {
-                throw new NoStartException();
-            }
             //since date is only in numbers and '-', remove the alphabets
             //chatGPT to help with regex
-            return start.replaceAll("[a-zA-Z]", "").trim();
+            String date = start.replaceAll("[a-zA-Z]", "").trim();
+            if (date.isBlank()) {
+                throw new NoStartException();
+            }
+            return date;
         } else {
             return null;
         }
@@ -126,13 +127,14 @@ public class TaskInformation {
         } else {
             return null;
         }
-
-        if (end.isBlank()) {
-            throw new NoEndException();
-        }
         //since date is only in numbers and '-', remove the alphabets
         //chatGPT to help with the regex
-        return end.replaceAll("[a-zA-Z]", "").trim();
+        String date = end.replaceAll("[a-zA-Z]", "").trim();
+
+        if (date.isBlank()) {
+            throw new NoEndException();
+        }
+        return date;
     }
 
     /**

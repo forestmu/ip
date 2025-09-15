@@ -1,16 +1,21 @@
 package tasks;
 
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.TestMethodOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import time.Time;
-
+//learnt about ordering with chatGPT
+@TestMethodOrder(OrderAnnotation.class)
 public class DeadlineTaskTest {
+    private TaskList list = new TaskList("./data/deadlineTestStorage.txt");
+
     @Test
     public void deadlineFormatStringTest() {
         TaskInformation info = new TaskInformation("deadline read book /by 02-06-2025 1800", "deadline");
         DeadlineTask deadline = new DeadlineTask(info);
-        String expected = "[D][ ] read book (by:2 Jun 2025 18:00)";
+        String expected = "[D][ ] read book (by: 2 Jun 2025 18:00)";
         String actual = deadline.toString();
         assertEquals(expected, actual);
     }
@@ -21,6 +26,72 @@ public class DeadlineTaskTest {
         DeadlineTask deadline = new DeadlineTask(info);
         String expected = "D |   | read book | 02-06-2025 1800";
         String actual = deadline.toSave();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(1)
+    public void addDeadlineTaskTest() {
+        String actual = list.addTask("deadline read book /by 15-08-2025 1800", "deadline");
+        String expected = "Candy successfully made this sweet: \n      "
+                + "[D][ ] read book (by: 15 Aug 2025 18:00)\n    Now you have 1"
+                + " sweets in your list.";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(2)
+    public void markDeadlineTaskTest() {
+        String actual = list.doMark("mark 1", true);
+        String expected = "Candy has ate this sweet ^-^ 😋\n    "
+                + "[D][X] read book (by: 15 Aug 2025 18:00)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(3)
+    public void updateDeadlineTaskTest() {
+        String actual = list.updateTask("edit 1 /return book /by 20-08-2025 1800");
+        String expected = "Candy has remade this sweet: \n"
+                + "[D][X] return book (by: 20 Aug 2025 18:00)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(4)
+    public void unmarkDeadlineTaskTest() {
+        String actual = list.doMark("mark 1", false);
+        String expected = "Candy has spat out this sweet ^-^ 😝\n    "
+                + "[D][ ] return book (by: 20 Aug 2025 18:00)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(5)
+    public void findDeadlineTaskTest() {
+        String actual = list.findTask("find book");
+        String expected = "Candy found these sweets \uD83C\uDF6C !"
+                + System.lineSeparator()
+                + "1. [D][ ] return book (by: 20 Aug 2025 18:00)"
+                + System.lineSeparator();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(6)
+    public void deleteDeadlineTaskTest() {
+        String actual = list.delete("delete 1");
+        String expected = "Candy threw away this sweet 😋\n      "
+                + "[D][ ] return book (by: 20 Aug 2025 18:00)\n    Now you have "
+                + "0 sweets left";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(7)
+    public void failFindDeadlineTaskTest() {
+        String actual = list.findTask("find book");
+        String expected = "Candy didn't find matching sweets 😢";
         assertEquals(expected, actual);
     }
 }

@@ -21,8 +21,8 @@ public class TaskList {
     private ArrayList<String> textToSave;
     private Storage taskStorage;
 
-    //ChatGPT suggested to put to personalise Candy
-    //Edited chatGPT's choice to mine
+    //Showed chatGPT a snippet of code with emoji
+    //chatGPT suggested to put them as constants
     private static final String DONE_EMOJI = "😋";
     private static final String UNDONE_EMOJI = "😝";
     private static final String CANDY_EMOJI = "🍬";
