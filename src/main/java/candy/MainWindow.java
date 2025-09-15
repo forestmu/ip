@@ -12,7 +12,10 @@ import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
- * Class inspired from GUI tutorial
+ *
+ * Reused from
+ * https://se-education.org/guides/tutorials/javaFx.html
+ * with minor modifications
  */
 public class MainWindow extends AnchorPane {
     @FXML

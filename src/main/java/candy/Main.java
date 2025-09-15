@@ -11,7 +11,10 @@ import javafx.stage.Stage;
 
 /**
  * A main class where application would start in.
- * Class inspired from GUI tutorial
+ *
+ * Reused from
+ * https://se-education.org/guides/tutorials/javaFx.html
+ * with minor modifications
  */
 public class Main extends Application {
 

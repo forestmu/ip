@@ -1,3 +1,8 @@
+ /* Reused from
+ * https://se-education.org/guides/tutorials/javaFx.html
+ * with minor modifications
+ */
+
 .root {
     /*image from freepik*/
     -fx-background-image: url("/images/Background.jpg");
