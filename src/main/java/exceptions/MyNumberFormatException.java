@@ -9,7 +9,7 @@ public class MyNumberFormatException extends RuntimeException {
      * Prints specific message
      */
     public MyNumberFormatException() {
-        super("Candy can't tell which task. \n"
+        super("Candy can't tell which sweet. \n"
                 + "Give candy a number after your command");
     }
 }

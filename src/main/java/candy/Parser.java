@@ -66,13 +66,13 @@ public class Parser {
         case DELETE:
             return taskList.delete(text);
         case FIND:
-                return taskList.findTask(text);
+            return taskList.findTask(text);
         case TODO:
-                return taskList.addTask(text, "todo");
+            return taskList.addTask(text, "todo");
         case DEADLINE:
-                return taskList.addTask(text, "deadline");
+            return taskList.addTask(text, "deadline");
         case EVENT:
-                return taskList.addTask(text, "event");
+            return taskList.addTask(text, "event");
         case EDIT:
             return taskList.updateTask(text);
         }

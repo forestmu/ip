@@ -2,8 +2,12 @@ package storage;
 
 import candy.Ui;
 import exceptions.InvalidTaskReadException;
-import tasks.*;
-import time.Time;
+
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TodoTask;
+import tasks.TaskInformation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +31,10 @@ public class Storage {
      */
     public Storage(String filePath) {
         try {
+            //chatGPT taught me about the File class
+            //which I never heard of before this
+            //clarified how the functions worked with
+            //chatGPT after reading the docs
             this.candyStorage = new File(filePath);
             this.dataFolder = candyStorage.getParentFile();
             //makes folder and file if doesn't exist
@@ -52,6 +60,7 @@ public class Storage {
      */
     public void write(String string, boolean toAppend) {
         try {
+            //asked chatGPT about existing methods we can use to write to a file
             FileWriter writer = new FileWriter(candyStorage, toAppend);
             writer.write(string);
             writer.close();
@@ -152,6 +161,8 @@ public class Storage {
     public Task stringToTask(String taskString) {
         //Splits information into type, whether it's done and description
         //universal for todo, deadline and event tasks
+        //chatGPT taught me about split method
+        //and trim
         String[] parts = taskString.split("\\|");
         String type = parts[0].trim();
 

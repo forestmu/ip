@@ -10,6 +10,7 @@ public class EditTaskErrorException extends RuntimeException {
      * Prints specific message
      */
     public EditTaskErrorException() {
-        super("Oh no! Task does not exist \uD83D\uDE22");
+        super("Oh no! Candy don't have that sweet \uD83D\uDE22"
+                + "\nPlease give candy a valid number");
     }
 }

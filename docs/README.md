@@ -1,5 +1,6 @@
 # Candy 🍬 User Guide
-![img.png](Ui.png)
+![Ui.png](Ui.png)
+(Images designed by Freepik)
 ## Welcome to Candy chatbot!
 >Manage your ~~tasks~~ **sweets** here!
 
@@ -22,7 +23,7 @@ and Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [T][ ] read book
-    Now you have 1 sweets in your list.
+    Now you have 1 sweet(s) in your list.
 ```
 
 ### 2. Adding deadlines
@@ -41,7 +42,7 @@ Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [D][ ] read book (by: 15 Aug 2025 18:00)
-    Now you have 2 sweets in your list.
+    Now you have 2 sweet(s) in your list.
 ```
 
 ### 3. Adding events
@@ -61,7 +62,7 @@ Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
-    Now you have 3 sweets in your list.
+    Now you have 3 sweet(s) in your list.
 ```
 
 ### 4. Marking task
@@ -75,7 +76,7 @@ For example, type:
 
 Candy will show you this:
 ```
-Candy has ate this sweet ^-^ 😋
+Candy marked this sweet edible ^-^ 😋
     [T][X] read book
 ```
 
@@ -90,7 +91,7 @@ For example, type:
 
 Candy will show you this:
 ```
-Candy has spat out this sweet ^-^ 😝
+Candy marked this sweet inedible ^-^ 😝
     [T][ ] read book
 ```
 
@@ -105,9 +106,9 @@ For example, type:
 
 Candy will show you this:
 ```
-Candy threw away this sweet 😋
+Candy ate this sweet 😋
     [T][X] read book
-    Now you have 2 sweets left
+    Now you have 2 sweet(s) left
 ```
 
 ### 7. List task
@@ -150,7 +151,7 @@ For example, type:
 
 Candy will show you this:
 ```
-Candy has remade this sweet:
+Candy successfully remade this sweet:
     [D][X] return book (by: 20 Aug 2025 23:59)
 ```
 

@@ -35,7 +35,7 @@ public class DeadlineTaskTest {
         String actual = list.addTask("deadline read book /by 15-08-2025 1800", "deadline");
         String expected = "Candy successfully made this sweet: \n      "
                 + "[D][ ] read book (by: 15 Aug 2025 18:00)\n    Now you have 1"
-                + " sweets in your list.";
+                + " sweet(s) in your list.";
         assertEquals(expected, actual);
     }
 
@@ -43,7 +43,7 @@ public class DeadlineTaskTest {
     @Order(2)
     public void markDeadlineTaskTest() {
         String actual = list.doMark("mark 1", true);
-        String expected = "Candy has ate this sweet ^-^ 😋\n    "
+        String expected = "Candy marked this sweet edible ^-^ 😋\n    "
                 + "[D][X] read book (by: 15 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -52,7 +52,7 @@ public class DeadlineTaskTest {
     @Order(3)
     public void updateDeadlineTaskTest() {
         String actual = list.updateTask("edit 1 /return book /by 20-08-2025 1800");
-        String expected = "Candy has remade this sweet: \n"
+        String expected = "Candy successfully remade this sweet: \n"
                 + "[D][X] return book (by: 20 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -61,7 +61,7 @@ public class DeadlineTaskTest {
     @Order(4)
     public void unmarkDeadlineTaskTest() {
         String actual = list.doMark("mark 1", false);
-        String expected = "Candy has spat out this sweet ^-^ 😝\n    "
+        String expected = "Candy marked this sweet inedible ^-^ 😝\n    "
                 + "[D][ ] return book (by: 20 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -81,9 +81,9 @@ public class DeadlineTaskTest {
     @Order(6)
     public void deleteDeadlineTaskTest() {
         String actual = list.delete("delete 1");
-        String expected = "Candy threw away this sweet 😋\n      "
+        String expected = "Candy ate this sweet 😋\n      "
                 + "[D][ ] return book (by: 20 Aug 2025 18:00)\n    Now you have "
-                + "0 sweets left";
+                + "0 sweet(s) left";
         assertEquals(expected, actual);
     }
 

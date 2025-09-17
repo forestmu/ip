@@ -10,18 +10,18 @@ public class InvalidInputException extends RuntimeException {
      * Prints specific message
      */
     public InvalidInputException() {
-        super("Aiyo! Wrong recipe! No candy is made \n"
+        super("Aiyo! Wrong recipe! No sweet is made \n"
                 + "Follow the following recipes: \n"
-                + "1. To add Tasks: \n"
+                + "1. To add sweets (Tasks): \n"
                 + "     - 'todo <task>'\n"
                 + "     - 'deadline <task> /by <dd-mm-yyyy HHmm>'\n"
                 + "     - 'events <task> /from <dd-mm-yyyy HHmm> /to <dd-mm-yyyy HHmm>'\n"
-                + "2. To edit tasks: \n"
+                + "2. To edit sweets: \n"
                 + "     - 'mark <task number>' \n"
                 + "     - 'unmark <task number>'.\n"
                 + "     - 'delete <task number>' \n"
                 + "     - 'edit <task number> /[same as adding task but without 'todo', 'deadline' or 'event']'\n"
-                + "3. To view/find tasks:\n"
+                + "3. To view/find sweets:\n"
                 + "     - 'list'\n"
                 + "     - 'find <keyword>'\n"
                 + "4. To close:"

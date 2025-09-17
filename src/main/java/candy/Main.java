@@ -24,6 +24,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            //Font from google font
             Font.loadFont(getClass().getResource("/fonts/PixelifySans-Medium.ttf").toExternalForm(), 10);
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

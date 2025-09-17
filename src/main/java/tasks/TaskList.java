@@ -117,11 +117,11 @@ public class TaskList {
             if (mark) {
                 toMark.markDone();
                 assert toMark.getStatusIcon().equals("X") : "task should be marked done";
-                dialog = "Candy has ate this sweet ^-^ " + DONE_EMOJI + "\n    ";
+                dialog = "Candy marked this sweet edible ^-^ " + DONE_EMOJI + "\n    ";
             } else {
                 toMark.markUndone();
                 assert toMark.getStatusIcon().equals(" ") : "task should be marked undone";
-                dialog = "Candy has spat out this sweet ^-^ " + UNDONE_EMOJI + "\n    ";
+                dialog = "Candy marked this sweet inedible ^-^ " + UNDONE_EMOJI + "\n    ";
             }
 
             //edit the task in the array
@@ -151,9 +151,9 @@ public class TaskList {
 
             overwriteStorage();
 
-            return "Candy threw away this sweet " + DONE_EMOJI + "\n      "
+            return "Candy ate this sweet " + DONE_EMOJI + "\n      "
                     + toDelete.toString() + "\n    Now you have "
-                    + allText.size() + " sweets left";
+                    + allText.size() + " sweet(s) left";
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
@@ -185,7 +185,7 @@ public class TaskList {
             taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
             return "Candy successfully made this sweet: \n      "
                     + newTask.toString() + "\n    Now you have " + allText.size()
-                    + " sweets in your list.";
+                    + " sweet(s) in your list.";
         } catch (InvalidInputException | NoEndException | NoStartException
                  | NoTaskException | InvalidTimeInputException e) {
             return Ui.printError(e);
@@ -283,7 +283,7 @@ public class TaskList {
             textToSave.set(order - 1, toEdit.toSave());
             overwriteStorage();
 
-            return "Candy has remade this sweet: \n"
+            return "Candy successfully remade this sweet: \n"
                     + toEdit.toString();
         } catch (MyNumberFormatException | NoTaskException | NoStartException
                  | NoEndException | InvalidInputException

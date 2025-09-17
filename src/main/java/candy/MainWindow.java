@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Candy candy;
     private Stage stage;
 
-    //Image from freepik
+    //Image designed by Freepik
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image candyImage = new Image(this.getClass().getResourceAsStream("/images/Candy.png"));
 
@@ -73,6 +73,7 @@ public class MainWindow extends AnchorPane {
             Parser.setIsConversationOver(false);
 
             //delay for 1 second for user to see the goodbye message before closing
+            //chatGPT taught about the PauseTransition class
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(e -> stage.close()); // Close stage after delay
             delay.play();

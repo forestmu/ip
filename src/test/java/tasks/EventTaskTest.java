@@ -30,18 +30,18 @@ public class EventTaskTest {
     @Test
     public void invalidAddInputTest() {
         String actual = list.addTask("event", "event");
-        String expected = "Aiyo! Wrong recipe! No candy is made \n"
+        String expected = "Aiyo! Wrong recipe! No sweet is made \n"
                 + "Follow the following recipes: \n"
-                + "1. To add Tasks: \n"
+                + "1. To add sweets (Tasks): \n"
                 + "     - 'todo <task>'\n"
                 + "     - 'deadline <task> /by <dd-mm-yyyy HHmm>'\n"
                 + "     - 'events <task> /from <dd-mm-yyyy HHmm> /to <dd-mm-yyyy HHmm>'\n"
-                + "2. To edit tasks: \n"
+                + "2. To edit sweets: \n"
                 + "     - 'mark <task number>' \n"
                 + "     - 'unmark <task number>'.\n"
                 + "     - 'delete <task number>' \n"
                 + "     - 'edit <task number> /[same as adding task but without 'todo', 'deadline' or 'event']'\n"
-                + "3. To view/find tasks:\n"
+                + "3. To view/find sweets:\n"
                 + "     - 'list'\n"
                 + "     - 'find <keyword>'\n"
                 + "4. To close:"
@@ -84,7 +84,7 @@ public class EventTaskTest {
     @Test
     public void invalidMarkTestOne() {
         String actual = list.doMark("mark", true);
-        String expected = "Candy can't tell which task. \n"
+        String expected = "Candy can't tell which sweet. \n"
                 + "Give candy a number after your command";
         assertEquals(expected, actual);
     }
@@ -92,7 +92,7 @@ public class EventTaskTest {
     @Test
     public void invalidMarkTestTwo() {
         String actual = list.doMark("mark a", true);
-        String expected = "Candy can't tell which task. \n"
+        String expected = "Candy can't tell which sweet. \n"
                 + "Give candy a number after your command";
         assertEquals(expected, actual);
     }
@@ -100,14 +100,15 @@ public class EventTaskTest {
     @Test
     public void invalidMarkTestThree() {
         String actual = list.doMark("mark -1", true);
-        String expected = "Oh no! Task does not exist \uD83D\uDE22";
+        String expected = "Oh no! Candy don't have that sweet \uD83D\uDE22"
+                + "\nPlease give candy a valid number";
         assertEquals(expected, actual);
     }
 
     @Test
     public void invalidUpdateTaskTestOne() {
         String actual =  list.updateTask("edit /test /from 18-01-2020 1800 /to 15-02-2020 1800");
-        String expected = "Candy can't tell which task. \n"
+        String expected = "Candy can't tell which sweet. \n"
                 + "Give candy a number after your command";
         assertEquals(expected, actual);
     }
@@ -115,7 +116,8 @@ public class EventTaskTest {
     @Test
     public void invalidUpdateTaskTestTwo() {
         String actual =  list.updateTask("edit 1 /test /from 18-01-2020 1800 /to 15-02-2020 1800");
-        String expected = "Oh no! Task does not exist \uD83D\uDE22";
+        String expected = "Oh no! Candy don't have that sweet \uD83D\uDE22"
+                + "\nPlease give candy a valid number";
         assertEquals(expected, actual);
     }
 }
