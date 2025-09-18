@@ -21,6 +21,6 @@ public class Candy {
      * Returns string dialog by candy bot
      */
     public String getResponse(String input) {
-        return Parser.parse(input, taskList);
+        return Parser.parse(input.trim(), taskList);
     }
 }
