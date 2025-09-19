@@ -156,7 +156,7 @@ public class TaskList {
 
             return "Candy ate this sweet " + DONE_EMOJI
                     + "\n    " + toDelete.toString()
-                    + "\n    Now you have " + allText.size() + " sweet(s) left";
+                    + "\nNow you have " + allText.size() + " sweet(s) left";
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
@@ -187,7 +187,7 @@ public class TaskList {
             //save to storage
             taskStorage.write(newTask.toSave() + "\n", true);
             return "Candy successfully made this sweet: \n    "
-                    + newTask.toString() + "\n    Now you have "
+                    + newTask.toString() + "\nNow you have "
                     + allText.size() + " sweet(s) in your list.";
         } catch (InvalidInputException | NoEndException | NoStartException
                  | NoTaskException | InvalidTimeInputException e) {
@@ -287,7 +287,7 @@ public class TaskList {
             textToSave.set(order - 1, toEdit.toSave());
             overwriteStorage();
 
-            return "Candy successfully remade this sweet: \n"
+            return "Candy successfully remade this sweet: \n    "
                     + toEdit.toString();
         } catch (MyNumberFormatException | NoTaskException | NoStartException
                  | NoEndException | InvalidInputException

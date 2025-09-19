@@ -23,7 +23,7 @@ and Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [T][ ] read book
-    Now you have 1 sweet(s) in your list.
+Now you have 1 sweet(s) in your list.
 ```
 
 ### 2. Adding deadlines
@@ -42,7 +42,7 @@ Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [D][ ] read book (by: 15 Aug 2025 18:00)
-    Now you have 2 sweet(s) in your list.
+Now you have 2 sweet(s) in your list.
 ```
 
 ### 3. Adding events
@@ -62,7 +62,7 @@ Candy will show you this:
 ```
 Candy successfully made this sweet:       
     [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
-    Now you have 3 sweet(s) in your list.
+Now you have 3 sweet(s) in your list.
 ```
 
 ### 4. Marking task
@@ -108,7 +108,7 @@ Candy will show you this:
 ```
 Candy ate this sweet 😋
     [T][X] read book
-    Now you have 2 sweet(s) left
+Now you have 2 sweet(s) left
 ```
 
 ### 7. List task
@@ -119,9 +119,9 @@ Type `list` to show the list of task(s)!
 Candy will show you your list of task:
 ```
 All your sweets 🍬 are here:
-    1. [D][ ] read book (by: 15 Aug 2025 18:00)
-    2. [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
-
+1. [D][ ] read book (by: 15 Aug 2025 18:00)
+2. [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
+You have 2 sweet(s) here!
 ```
 
 ### 8. Find task
@@ -135,9 +135,9 @@ For example, type:
 Candy will show you this:
 ```
 Candy found these sweets 🍬 !
-    1. [D][ ] read book (by: 15 Aug 2025 18:00)
-    2. [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
-
+1. [D][ ] read book (by: 15 Aug 2025 18:00)
+2. [E][ ] read book (from: 15 Aug 2025 18:00 to: 18 Aug 2025 18:00)
+You have 2 sweet(s) here!
 ```
 
 ### 9. Edit task

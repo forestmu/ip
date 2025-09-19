@@ -35,7 +35,7 @@ public class DeadlineTaskTest {
         String actual = list.addTask("deadline read book /by 15-08-2025 1800", "deadline");
         String expected = "Candy successfully made this sweet: \n    "
                 + "[D][ ] read book (by: 15 Aug 2025 18:00)"
-                + "\n    Now you have 1 sweet(s) in your list.";
+                + "\nNow you have 1 sweet(s) in your list.";
         assertEquals(expected, actual);
     }
 
@@ -53,7 +53,7 @@ public class DeadlineTaskTest {
     public void updateDeadlineTaskTest() {
         String actual = list.updateTask("edit 1 /return book /by 20-08-2025 1800");
         String expected = "Candy successfully remade this sweet: \n"
-                + "[D][X] return book (by: 20 Aug 2025 18:00)";
+                + "    [D][X] return book (by: 20 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
 
@@ -82,7 +82,7 @@ public class DeadlineTaskTest {
         String actual = list.delete("delete 1");
         String expected = "Candy ate this sweet 😋"
                 + "\n    [D][ ] return book (by: 20 Aug 2025 18:00)"
-                + "\n    Now you have 0 sweet(s) left";
+                + "\nNow you have 0 sweet(s) left";
         assertEquals(expected, actual);
     }
 
