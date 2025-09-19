@@ -114,7 +114,7 @@ Candy ate this sweet 😋
 ### 7. List task
 Unsure of task number?
 
-Type `list`!
+Type `list` to show the list of task(s)!
 
 Candy will show you your list of task:
 ```
@@ -127,7 +127,7 @@ All your sweets 🍬 are here:
 ### 8. Find task
 Want to find specific tasks?
 
-Type `find <keyword>`!
+Type `find <keyword>` to find your task(s)!
 
 For example, type:
 `find book`
@@ -144,7 +144,8 @@ Candy found these sweets 🍬 !
 Typed wrongly? Want to change the details?
 
 Type 
-`edit <task number> /<task> <start time if any> <end time if any>!`
+`edit <task number> /<task> <start time if any> <end time if any>` 
+to edit the task chosen!
 
 For example, type:
 `edit 1 /return book /by 20-08-2025 2359`

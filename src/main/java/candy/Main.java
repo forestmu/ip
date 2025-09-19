@@ -25,6 +25,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             //Font from google font
+            //chatGPT to help with the method for loading font:
             Font.loadFont(getClass().getResource("/fonts/Chewy-Regular.ttf").toExternalForm(), 10);
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
