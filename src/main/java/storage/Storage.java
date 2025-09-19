@@ -1,13 +1,6 @@
 package storage;
 
 import candy.Ui;
-import exceptions.InvalidTaskReadException;
-
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.Task;
-import tasks.TodoTask;
-import tasks.TaskInformation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exceptions.InvalidTaskReadException;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TaskInformation;
+import tasks.TodoTask;
 
 /**
  * Represents a storage that handle edits to file
