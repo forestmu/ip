@@ -48,7 +48,7 @@ public class TaskList {
         //update the string of tasks
         StringBuilder newList = new StringBuilder();
         for (String text : textToSave) {
-            newList.append(text).append(System.lineSeparator());
+            newList.append(text).append("\n");
         }
         //save to storage
         taskStorage.write(newList.toString(), false);
@@ -64,11 +64,12 @@ public class TaskList {
      */
     private String taskListToString(ArrayList<Task> tasks, String startLine) {
         //startLine is the first line of text eg: Here are your task
-        StringBuilder sb = new StringBuilder(startLine).append(System.lineSeparator());
+        StringBuilder sb = new StringBuilder(startLine).append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ")
-                    .append(tasks.get(i)).append(System.lineSeparator());
+                    .append(tasks.get(i)).append("\n");
         }
+        sb.append("You have " + tasks.size() + " sweet(s) here!");
         return sb.toString();
     }
 
@@ -118,12 +119,12 @@ public class TaskList {
                 toMark.markDone();
                 assert toMark.getStatusIcon().equals("X") : "task should be marked done";
                 dialog = "Candy marked this sweet edible ^-^ " + DONE_EMOJI
-                        + System.lineSeparator() + "    ";
+                        + "\n    ";
             } else {
                 toMark.markUndone();
                 assert toMark.getStatusIcon().equals(" ") : "task should be marked undone";
                 dialog = "Candy marked this sweet inedible ^-^ " + UNDONE_EMOJI
-                        + System.lineSeparator() + "    ";
+                        + "\n    ";
             }
 
             //edit the task in the array
@@ -153,9 +154,9 @@ public class TaskList {
 
             overwriteStorage();
 
-            return "Candy ate this sweet " + DONE_EMOJI + System.lineSeparator()
-                    + "    " + toDelete.toString() + System.lineSeparator()
-                    + "    Now you have " + allText.size() + " sweet(s) left";
+            return "Candy ate this sweet " + DONE_EMOJI
+                    + "\n    " + toDelete.toString()
+                    + "\n    Now you have " + allText.size() + " sweet(s) left";
         } catch (MyNumberFormatException | EditTaskErrorException e) {
             return Ui.printError(e);
         }
@@ -184,9 +185,9 @@ public class TaskList {
             textToSave.add(newTask.toSave());
 
             //save to storage
-            taskStorage.write(newTask.toSave() + System.lineSeparator(), true);
-            return "Candy successfully made this sweet: " + System.lineSeparator() + "    "
-                    + newTask.toString() + System.lineSeparator() +"    Now you have "
+            taskStorage.write(newTask.toSave() + "\n", true);
+            return "Candy successfully made this sweet: \n    "
+                    + newTask.toString() + "\n    Now you have "
                     + allText.size() + " sweet(s) in your list.";
         } catch (InvalidInputException | NoEndException | NoStartException
                  | NoTaskException | InvalidTimeInputException e) {
@@ -286,7 +287,7 @@ public class TaskList {
             textToSave.set(order - 1, toEdit.toSave());
             overwriteStorage();
 
-            return "Candy successfully remade this sweet: " + System.lineSeparator()
+            return "Candy successfully remade this sweet: \n"
                     + toEdit.toString();
         } catch (MyNumberFormatException | NoTaskException | NoStartException
                  | NoEndException | InvalidInputException

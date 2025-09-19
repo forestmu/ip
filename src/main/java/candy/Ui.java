@@ -9,7 +9,7 @@ public class Ui {
      */
     public static String printWelcome() {
         return "Hello! I am Candy \uD83C\uDF6C."
-                + System.lineSeparator() + "Your sweet task manager ^-^";
+                + "\nYour sweet task manager ^-^";
     }
 
     /**

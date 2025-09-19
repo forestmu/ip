@@ -11,7 +11,6 @@ public class EditTaskErrorException extends RuntimeException {
      */
     public EditTaskErrorException() {
         super("Oh no! Candy don't have that sweet \uD83D\uDE22"
-                + System.lineSeparator()
-                + "Please give candy a valid number");
+                + "\nPlease give candy a valid number");
     }
 }

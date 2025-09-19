@@ -7,6 +7,6 @@ public class InvalidTaskReadException extends RuntimeException {
      */
     public InvalidTaskReadException() {
         super("Oh no! Your stored candies has melted. Candy can't distinguish them!"
-                + System.lineSeparator() + "Please check your storage data file!");
+                + "\nPlease check your storage data file!");
     }
 }

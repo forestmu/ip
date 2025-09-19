@@ -33,9 +33,9 @@ public class DeadlineTaskTest {
     @Order(1)
     public void addDeadlineTaskTest() {
         String actual = list.addTask("deadline read book /by 15-08-2025 1800", "deadline");
-        String expected = "Candy successfully made this sweet: " + System.lineSeparator() + "    "
-                + "[D][ ] read book (by: 15 Aug 2025 18:00)" + System.lineSeparator()
-                + "    Now you have 1 sweet(s) in your list.";
+        String expected = "Candy successfully made this sweet: \n    "
+                + "[D][ ] read book (by: 15 Aug 2025 18:00)"
+                + "\n    Now you have 1 sweet(s) in your list.";
         assertEquals(expected, actual);
     }
 
@@ -43,7 +43,7 @@ public class DeadlineTaskTest {
     @Order(2)
     public void markDeadlineTaskTest() {
         String actual = list.doMark("mark 1", true);
-        String expected = "Candy marked this sweet edible ^-^ 😋" + System.lineSeparator()
+        String expected = "Candy marked this sweet edible ^-^ 😋\n"
                 + "    [D][X] read book (by: 15 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -52,7 +52,7 @@ public class DeadlineTaskTest {
     @Order(3)
     public void updateDeadlineTaskTest() {
         String actual = list.updateTask("edit 1 /return book /by 20-08-2025 1800");
-        String expected = "Candy successfully remade this sweet: " + System.lineSeparator()
+        String expected = "Candy successfully remade this sweet: \n"
                 + "[D][X] return book (by: 20 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -61,7 +61,7 @@ public class DeadlineTaskTest {
     @Order(4)
     public void unmarkDeadlineTaskTest() {
         String actual = list.doMark("mark 1", false);
-        String expected = "Candy marked this sweet inedible ^-^ 😝" + System.lineSeparator()
+        String expected = "Candy marked this sweet inedible ^-^ 😝\n"
                 + "    [D][ ] return book (by: 20 Aug 2025 18:00)";
         assertEquals(expected, actual);
     }
@@ -70,10 +70,9 @@ public class DeadlineTaskTest {
     @Order(5)
     public void findDeadlineTaskTest() {
         String actual = list.findTask("find book");
-        String expected = "Candy found these sweets \uD83C\uDF6C !"
-                + System.lineSeparator()
-                + "1. [D][ ] return book (by: 20 Aug 2025 18:00)"
-                + System.lineSeparator();
+        String expected = "Candy found these sweets \uD83C\uDF6C !\n"
+                + "1. [D][ ] return book (by: 20 Aug 2025 18:00)\n"
+                + "You have 1 sweet(s) here!";
         assertEquals(expected, actual);
     }
 
@@ -81,9 +80,9 @@ public class DeadlineTaskTest {
     @Order(6)
     public void deleteDeadlineTaskTest() {
         String actual = list.delete("delete 1");
-        String expected = "Candy ate this sweet 😋" + System.lineSeparator()
-                + "    [D][ ] return book (by: 20 Aug 2025 18:00)" + System.lineSeparator()
-                + "    Now you have 0 sweet(s) left";
+        String expected = "Candy ate this sweet 😋"
+                + "\n    [D][ ] return book (by: 20 Aug 2025 18:00)"
+                + "\n    Now you have 0 sweet(s) left";
         assertEquals(expected, actual);
     }
 

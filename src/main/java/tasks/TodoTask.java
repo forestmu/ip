@@ -8,6 +8,7 @@ public class TodoTask extends Task {
     /**
      * Constructor of Todo task
      *
+     *
      * @param information TaskInformation object holding information of task
      */
     public TodoTask(TaskInformation information) {

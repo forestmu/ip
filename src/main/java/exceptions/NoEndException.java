@@ -10,8 +10,8 @@ public class NoEndException extends RuntimeException {
      * Prints specific message
      */
     public NoEndException() {
-        super("Oh no! Candy doesn't know when to stop!" + System.lineSeparator()
-                + "Please specify an end time by inputting"
+        super("Oh no! Candy doesn't know when to stop!"
+                + "\nPlease specify an end time by inputting"
                 + " '/by (end)' for deadline task or '/to (end)' for event task");
     }
 }
