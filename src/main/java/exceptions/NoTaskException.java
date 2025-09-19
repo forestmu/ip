@@ -10,7 +10,7 @@ public class NoTaskException extends RuntimeException {
      * Prints specific message
      */
     public NoTaskException() {
-        super("Yikes! Candy don't know what to make.\n"
+        super("Yikes! Candy don't know what to make." + System.lineSeparator()
                 + "Input your task!");
     }
 }

@@ -10,7 +10,7 @@ public class NoStartException extends RuntimeException {
      * Prints specific message
      */
     public NoStartException() {
-        super("Oh no! Candy doesn't know when to start\n "
+        super("Oh no! Candy doesn't know when to start " + System.lineSeparator()
                 + "Please input a start time by '/from (start)");
     }
 }

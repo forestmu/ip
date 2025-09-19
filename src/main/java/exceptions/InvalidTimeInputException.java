@@ -10,8 +10,9 @@ public class InvalidTimeInputException extends RuntimeException {
      * Prints specific message
      */
     public InvalidTimeInputException() {
-        super("Candy needs the recipe right!\n"
-                + "Please input in the format: 'dd-mm-yyyy HHmm' \n"
+        super("Candy needs the recipe right!" + System.lineSeparator()
+                + "Please input in the format: 'dd-mm-yyyy HHmm' "
+                + System.lineSeparator()
                 + "If date/month < 10, remember to add '0' at the front!");
     }
 }

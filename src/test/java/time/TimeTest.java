@@ -26,8 +26,8 @@ public class TimeTest {
     @Test
     public void invalidTimeTaskTest() {
         String actual = list.addTask("deadline get book /by 18 05 2025 1800", "deadline");
-        String expected = "Candy needs the recipe right!\n"
-                + "Please input in the format: 'dd-mm-yyyy HHmm' \n"
+        String expected = "Candy needs the recipe right!" + System.lineSeparator()
+                + "Please input in the format: 'dd-mm-yyyy HHmm' " + System.lineSeparator()
                 + "If date/month < 10, remember to add '0' at the front!";
         assertEquals(expected, actual);
     }
@@ -35,8 +35,8 @@ public class TimeTest {
     @Test
     public void invalidTimeTaskTestTwo() {
         String actual = list.addTask("deadline test book /by 8-02-2025 1800", "deadline");
-        String expected = "Candy needs the recipe right!\n"
-                + "Please input in the format: 'dd-mm-yyyy HHmm' \n"
+        String expected = "Candy needs the recipe right!" + System.lineSeparator()
+                + "Please input in the format: 'dd-mm-yyyy HHmm' " + System.lineSeparator()
                 + "If date/month < 10, remember to add '0' at the front!";
         assertEquals(expected, actual);
     }
@@ -44,8 +44,8 @@ public class TimeTest {
     @Test
     public void invalidTimeTaskTestThree() {
         String actual = list.addTask("deadline test book /by18-2-2025 1800", "deadline");
-        String expected = "Candy needs the recipe right!\n"
-                + "Please input in the format: 'dd-mm-yyyy HHmm' \n"
+        String expected = "Candy needs the recipe right!" + System.lineSeparator()
+                + "Please input in the format: 'dd-mm-yyyy HHmm' " + System.lineSeparator()
                 + "If date/month < 10, remember to add '0' at the front!";
         assertEquals(expected, actual);
     }

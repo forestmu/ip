@@ -8,7 +8,8 @@ public class Ui {
      * Returns String of the welcome line
      */
     public static String printWelcome() {
-        return "Hello! I am Candy \uD83C\uDF6C. \nYour sweet task manager ^-^";
+        return "Hello! I am Candy \uD83C\uDF6C."
+                + System.lineSeparator() + "Your sweet task manager ^-^";
     }
 
     /**
