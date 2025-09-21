@@ -1,10 +1,17 @@
+# I thought CI was only running on the OS we have
+# With more clarifications, I realised it can test on the OS
+# I don't have. Hence, I'm adding the other OS, taken from:
+# https://github.com/se-edu/duke/blob/full-template/.github/workflows/gradle.yml
 name: Candy CI
 
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
 
     steps:
       - name: Set up repository
@@ -30,3 +37,11 @@ jobs:
 
       - name: Build and check with Gradle
         run: ./gradlew check
+
+      - name: Install dos2unix on Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y dos2unix
+
+      - name: Install dos2unix on macOS
+        if: runner.os == 'macOS'
+        run: brew install dos2unix
